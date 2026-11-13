@@ -1,0 +1,63 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import ComingSoon from '../components/ComingSoon.astro';
+import { site } from '../config';
+
+const form = site.contactFormUrl;
+const formSrc = form ? form + (form.includes('?') ? '&' : '?') + 'embedded=true' : '';
+const hasDirect = site.phone || site.email || site.whatsapp;
+const s = site.social;
+---
+
+<Base title="צור קשר" description="יצירת קשר עם בית הכנסת של ביתא ישראל בנווה יעקב.">
+  <PageHero title="צור קשר" lead="שאלות, הזמנת סיור, הצעה לשיתוף פעולה או תיקון לתוכן? נשמח לשמוע." />
+
+  <section class="section">
+    <div class="container grid grid--2">
+      <div class="card">
+        <h2 class="h3">דרכים ליצירת קשר</h2>
+        <ul class="contact">
+          <li>📍 {site.address}</li>
+          {site.phone && <li>📞 <a href={`tel:${site.phone}`}>{site.phone}</a></li>}
+          {site.email && <li>✉️ <a href={`mailto:${site.email}`}>{site.email}</a></li>}
+          {site.whatsapp && (
+            <li>💬 <a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener">וואטסאפ</a></li>
+          )}
+          {s.facebook && <li><a href={s.facebook} target="_blank" rel="noopener">פייסבוק</a></li>}
+          {s.instagram && <li><a href={s.instagram} target="_blank" rel="noopener">אינסטגרם</a></li>}
+          {s.youtube && <li><a href={s.youtube} target="_blank" rel="noopener">יוטיוב</a></li>}
+        </ul>
+        {!hasDirect && <p class="muted">טלפון, מייל ווואטסאפ יתווספו בקרוב.</p>}
+      </div>
+
+      <div>
+        {
+          formSrc ? (
+            <iframe class="embed" title="טופס יצירת קשר" src={formSrc} height="900" loading="lazy" />
+          ) : (
+            <ComingSoon title="טופס יצירת קשר יעלה בקרוב" />
+          )
+        }
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .h3 {
+    font-size: 1.3rem;
+  }
+  .contact {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1em;
+    font-size: 1.1rem;
+  }
+  .contact li {
+    margin-bottom: 0.5em;
+  }
+  .muted {
+    color: var(--ink-soft);
+  }
+</style>

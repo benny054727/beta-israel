@@ -1,0 +1,29 @@
+---
+/** מקום שמור לתמונה – יוחלף בתמונה אמיתית של בית הכנסת / הקהילה */
+interface Props {
+  label?: string;
+  ratio?: string;
+}
+const { label = 'כאן תופיע תמונה', ratio = '4 / 3' } = Astro.props;
+---
+
+<div class="photo-ph" style={`aspect-ratio:${ratio}`} role="img" aria-label={label}>
+  <span>{label}</span>
+</div>
+
+<style>
+  .photo-ph {
+    width: 100%;
+    border-radius: var(--radius);
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 16px;
+    color: var(--earth);
+    font-weight: 700;
+    border: 2px dashed var(--border);
+    background:
+      radial-gradient(circle at center, rgb(255 255 255 / 0.85) 0 38%, transparent 39%),
+      repeating-conic-gradient(from 0deg, var(--sand) 0 15deg, #ead9bf 15deg 30deg);
+  }
+</style>

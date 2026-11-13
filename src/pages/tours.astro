@@ -1,0 +1,91 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import ComingSoon from '../components/ComingSoon.astro';
+import { site, url } from '../config';
+
+const form = site.tourFormUrl;
+const formSrc = form ? form + (form.includes('?') ? '&' : '?') + 'embedded=true' : '';
+const wa = site.whatsapp
+  ? `https://wa.me/${site.whatsapp}?text=${encodeURIComponent('שלום, אשמח לתאם סיור בבית הכנסת')}`
+  : '';
+---
+
+<Base title="סיורים" description="סיור חינם בבית הכנסת של ביתא ישראל בנווה יעקב, בעברית, באנגלית או באמהרית.">
+  <PageHero
+    title="סיור בבית הכנסת"
+    lead="בואו להכיר מקרוב את המסורת, ההיסטוריה והתרבות של יהודי אתיופיה."
+  />
+
+  <section class="section">
+    <div class="container grid grid--3">
+      <div class="card">
+        <h2 class="h3">🗣️ שלוש שפות</h2>
+        <p>הסיור מתקיים ב<strong>עברית</strong>, ב<strong>אנגלית</strong> או ב<strong>אמהרית</strong>.</p>
+      </div>
+      <div class="card">
+        <h2 class="h3">👥 לכל קבוצה</h2>
+        <p>משפחות, בתי ספר, תנועות נוער, ארגונים, תיירים וקהילות מחו"ל.</p>
+      </div>
+      <div class="card">
+        <h2 class="h3">💛 חינם</h2>
+        <p>הסיור ללא עלות. בסופו נשמח לתרומה לפעילות בית הכנסת, לפי יכולתכם.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="container">
+      <h2>מה רואים בסיור?</h2>
+      <ul class="list">
+        <li>בית הכנסת ומסורת התפילה של ביתא ישראל</li>
+        <li>סיפור הקהילה: מהכפרים באתיופיה ועד ירושלים</li>
+        <li>הקייסים, האורית בשפת הגעז והחגים, ובהם הסיגד</li>
+        <li>הקהילה היום, והאמנים הצעירים שלה</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="book">
+    <div class="container">
+      <h2>הזמנת סיור</h2>
+      {
+        formSrc ? (
+          <iframe class="embed" title="טופס הזמנת סיור" src={formSrc} height="1100" loading="lazy" />
+        ) : (
+          <ComingSoon title="טופס ההזמנה יעלה בקרוב">
+            <p>
+              בינתיים אפשר לתאם סיור{' '}
+              {wa ? (
+                <a href={wa} target="_blank" rel="noopener">בוואטסאפ</a>
+              ) : (
+                <a href={url('/contact')}>דרך עמוד צור קשר</a>
+              )}
+              . ציינו תאריך מבוקש, מספר משתתפים ושפה.
+            </p>
+          </ComingSoon>
+        )
+      }
+      <p class="after">
+        נהניתם מהסיור? <a href={url('/donate')}>תרומה קטנה עוזרת לנו לקיים עוד אירועים ופעילויות</a>.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .h3 {
+    font-size: 1.25rem;
+  }
+  .list {
+    padding-inline-start: 1.2em;
+    font-size: 1.1rem;
+  }
+  .list li {
+    margin-bottom: 0.4em;
+  }
+  .after {
+    margin-top: 24px;
+    font-size: 1.1rem;
+  }
+</style>

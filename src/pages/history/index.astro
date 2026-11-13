@@ -1,0 +1,48 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { getCollection } from 'astro:content';
+import { url } from '../../config';
+
+const articles = (await getCollection('history')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Base title="היסטוריה ותרבות" description="ההיסטוריה, המסורת והתרבות של יהודי אתיופיה – ביתא ישראל.">
+  <PageHero
+    title="היסטוריה ותרבות"
+    lead="מאות שנים של אמונה, מסורת וגעגועים לירושלים: הסיפור של ביתא ישראל."
+  />
+  <section class="section">
+    <div class="container">
+      <div class="grid grid--2">
+        {
+          articles.map((a) => (
+            <a class="card" href={url(`/history/${a.id}`)}>
+              <span class="icon" aria-hidden="true">{a.data.icon}</span>
+              <h2 class="h3">{a.data.title}</h2>
+              <p>{a.data.description}</p>
+              <span class="card__more">לקריאה ←</span>
+            </a>
+          ))
+        }
+      </div>
+      <div class="notice" style="margin-top:32px">
+        <p>
+          <strong>בקרוב יתווספו:</strong> החיים בכפרים באתיופיה, חגים ומועדים, מוזיקה ואוכל, לבוש
+          ומלאכות מסורתיות, ועדויות אישיות של בני הקהילה.
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .h3 {
+    font-size: 1.3rem;
+  }
+  .icon {
+    display: block;
+    font-size: 2rem;
+    margin-bottom: 8px;
+  }
+</style>

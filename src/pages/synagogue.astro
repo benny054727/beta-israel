@@ -1,0 +1,124 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import PhotoPlaceholder from '../components/PhotoPlaceholder.astro';
+import ComingSoon from '../components/ComingSoon.astro';
+import { site, url } from '../config';
+
+const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(site.mapQuery)}&hl=iw&output=embed`;
+---
+
+<Base title="בית הכנסת" description="בית הכנסת של קהילת ביתא ישראל בשכונת נווה יעקב, ירושלים.">
+  <PageHero
+    title="בית הכנסת"
+    lead="בית תפילה, בית מסורת ובית לקהילה, בשכונת נווה יעקב בירושלים."
+  />
+
+  <section class="section">
+    <div class="container split">
+      <div class="prose">
+        <h2>על בית הכנסת</h2>
+        <p>
+          בית הכנסת של ביתא ישראל בנווה יעקב ממשיך את מסורת ה<strong>מסגיד</strong>, בית התפילה של יהודי
+          אתיופיה. מתפללים בו לפי מסורת הקהילה, חוגגים בו את החגים ובהם הסיגד, והוא משמש
+          מקום מפגש לכל הגילאים.
+        </p>
+        <p>
+          בית הכנסת פתוח גם לקהל הרחב: לבתי ספר, לקבוצות, לתיירים ולכל מי שרוצה להכיר את
+          המסורת של יהודי אתיופיה. <a href={url('/tours')}>אפשר להזמין סיור חינם</a>.
+        </p>
+        <!-- TODO: להוסיף את סיפור הקמת בית הכנסת (מתי, מי הקים, מה מיוחד בו) -->
+      </div>
+      <PhotoPlaceholder label="תמונות בית הכנסת יתווספו בקרוב" />
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="container grid grid--2">
+      <div class="card">
+        <h2 class="h3">🕯️ זמני תפילות</h2>
+        {
+          site.prayerTimes.length > 0 ? (
+            <table class="times">
+              <tbody>
+                {site.prayerTimes.map((t) => (
+                  <tr>
+                    <th scope="row">{t.label}</th>
+                    <td>{t.time}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <p>זמני התפילות יפורסמו כאן בקרוב. בינתיים אפשר <a href={url('/contact')}>לפנות אלינו</a>.</p>
+          )
+        }
+      </div>
+
+      <div class="card">
+        <h2 class="h3">📍 איך מגיעים</h2>
+        <p><strong>{site.address}</strong></p>
+        <p>
+          <a
+            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.mapQuery)}`}
+            target="_blank"
+            rel="noopener">פתיחה ב-Google Maps</a
+          >
+          ·
+          <a href={`https://waze.com/ul?q=${encodeURIComponent(site.mapQuery)}`} target="_blank" rel="noopener"
+            >ניווט עם Waze</a
+          >
+        </p>
+        <!-- TODO: קווי אוטובוס, חניה ונגישות -->
+        <p class="muted">פרטים על תחבורה ציבורית, חניה ונגישות יתווספו בקרוב.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>מפה</h2>
+      <iframe
+        class="embed"
+        title={`מפה: ${site.address}`}
+        src={mapSrc}
+        height="380"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .split {
+    display: grid;
+    gap: 32px;
+    align-items: center;
+  }
+  @media (min-width: 860px) {
+    .split {
+      grid-template-columns: 1.2fr 1fr;
+      gap: 56px;
+    }
+  }
+  .h3 {
+    font-size: 1.3rem;
+  }
+  .times {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .times th,
+  .times td {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    text-align: start;
+  }
+  .times td {
+    text-align: end;
+    font-weight: 700;
+  }
+  .muted {
+    color: var(--ink-soft);
+  }
+</style>

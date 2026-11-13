@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { site, url } from '../config';
+
+const a = site.association;
+---
+
+<Base title={a.name} description={`${a.name} – הגוף שמקבל את התרומות לפעילות בית הכנסת של ביתא ישראל בנווה יעקב.`}>
+  <PageHero title={a.name} lead="השותפים שלנו להגדלת הפעילות בבית הכנסת ובקהילה." />
+
+  <section class="section">
+    <div class="container prose">
+      <h2>מי אנחנו</h2>
+      <p>
+        <strong>{a.name}</strong> היא האגודה שמקבלת ומנהלת את התרומות לפעילות של בית הכנסת של ביתא
+        ישראל בנווה יעקב. בעזרת התרומות האגודה מממנת אירועים, פעילות לקהילה ופרויקטים לאמנים, מעבר לתקציב
+        העירייה.
+      </p>
+      <!-- TODO: מטרות האגודה, שנת הקמה, יו"ר וחברי ועד (באישורם) -->
+
+      <h2>פרטים רשמיים</h2>
+      <ul>
+        <li>שם: {a.name}</li>
+        <li>מספר עמותה: {a.registrationNumber || 'יעודכן בקרוב'}</li>
+        <li>סעיף 46: {a.hasSection46 ? 'יש אישור בתוקף' : 'יעודכן בקרוב'}</li>
+      </ul>
+
+      <h2>שקיפות</h2>
+      <p>
+        אחת לרבעון נפרסם באתר כמה נאסף ומה מומן: אילו אירועים ופעילויות התקיימו בזכות התורמים.
+      </p>
+
+      <div class="btn-row" style="margin-top:32px">
+        <a class="btn btn--primary" href={url('/donate')}>לתרומה</a>
+        <a class="btn btn--outline" href={url('/contact')}>צור קשר</a>
+      </div>
+    </div>
+  </section>
+</Base>

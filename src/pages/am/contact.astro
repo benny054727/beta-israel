@@ -1,0 +1,65 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ComingSoon from '../../components/ComingSoon.astro';
+import { site, url } from '../../config';
+import { lurl } from '../../i18n';
+const L = (p: string) => lurl('am', p);
+
+const form = site.contactFormUrl;
+const formSrc = form ? form + (form.includes('?') ? '&' : '?') + 'embedded=true' : '';
+const hasDirect = site.phone || site.email || site.whatsapp;
+const s = site.social;
+---
+
+<Base title="ያግኙን" description="በኢየሩሳሌም ኔቬ ያዕቆብ የሚገኘውን የቤተ እስራኤል ምኩራብ ያግኙ።">
+  <PageHero title="ያግኙን" lead="ጥያቄ፣ የጉብኝት ቀጠሮ፣ የትብብር ሐሳብ ወይም በይዘቱ ላይ እርማት አለዎት? ብንሰማዎ ደስ ይለናል።" icon="synagogue.svg" />
+
+  <section class="section">
+    <div class="container grid grid--2">
+      <div class="card">
+        <h2 class="h3">እኛን የሚያገኙባቸው መንገዶች</h2>
+        <ul class="contact">
+          <li>📍 {site.addressAm}</li>
+          {site.phone && <li>📞 <a href={`tel:${site.phone}`}>{site.phone}</a></li>}
+          {site.email && <li>✉️ <a href={`mailto:${site.email}`}>{site.email}</a></li>}
+          {site.whatsapp && (
+            <li>💬 <a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener">ዋትስአፕ</a></li>
+          )}
+          {s.facebook && <li><a href={s.facebook} target="_blank" rel="noopener">Facebook</a></li>}
+          {s.instagram && <li><a href={s.instagram} target="_blank" rel="noopener">Instagram</a></li>}
+          {s.youtube && <li><a href={s.youtube} target="_blank" rel="noopener">YouTube</a></li>}
+        </ul>
+        {!hasDirect && <p class="muted">ስልክ፣ ኢሜይልና ዋትስአፕ በቅርቡ ይጨመራሉ።</p>}
+      </div>
+
+      <div>
+        {
+          formSrc ? (
+            <iframe class="embed" title="የመገናኛ ቅጽ" src={formSrc} height="900" loading="lazy" />
+          ) : (
+            <ComingSoon title="የመገናኛ ቅጹ በቅርቡ ይዘጋጃል" />
+          )
+        }
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .h3 {
+    font-size: 1.3rem;
+  }
+  .contact {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1em;
+    font-size: 1.1rem;
+  }
+  .contact li {
+    margin-bottom: 0.5em;
+  }
+  .muted {
+    color: var(--ink-soft);
+  }
+</style>

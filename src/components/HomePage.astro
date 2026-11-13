@@ -11,7 +11,8 @@ interface Props {
 const { lang } = Astro.props;
 const L = (p: string) => lurl(lang, p);
 
-const articles = (await getCollection(lang === 'en' ? 'historyEn' : 'history'))
+const collection = ({ he: 'history', en: 'historyEn', am: 'historyAm' } as const)[lang];
+const articles = (await getCollection(collection))
   .sort((a, b) => a.data.order - b.data.order)
   .slice(0, 4);
 
@@ -43,7 +44,8 @@ const content = {
     donTitle1: 'הפעילות של בית הכנסת',
     donTitle2: 'מתקיימת בזכותכם.',
     donText: 'האירועים, הפעילות לקהילה ופרויקט האמנים ממומנים מתרומות. כל תרומה עוזרת לנו לקיים עוד אירועים, להגיע לעוד משפחות ולקדם אמנים צעירים מהקהילה.',
-    donBy: 'התרומות מתקבלות ע"י',
+    donBy: 'התרומות מתקבלות ע"י ',
+    donByAfter: '.',
     association: site.association.name,
     donCta: 'אני רוצה לתרום',
     pillars: [
@@ -79,7 +81,8 @@ const content = {
     donTitle1: 'Our synagogue’s activities',
     donTitle2: 'happen thanks to you.',
     donText: 'Our events, community programs and artists’ project are funded by donations. Every gift helps us hold more events, reach more families and support young artists from the community.',
-    donBy: 'Donations are received by the',
+    donBy: 'Donations are received by the ',
+    donByAfter: '.',
     association: site.association.nameEn,
     donCta: 'I want to give',
     pillars: [
@@ -88,14 +91,54 @@ const content = {
       { icon: 'artists.svg', title: 'Artists’ project', text: 'Exhibitions, workshops and mentoring for young painters' },
     ],
   },
+  am: {
+    eyebrow: 'እንኳን ደህና መጣችሁ',
+    title1: 'ቤተ እስራኤል',
+    title2: 'ኔቬ ያዕቆብ፣ ኢየሩሳሌም',
+    lead: 'በኢየሩሳሌም የሚገኘው የኢትዮጵያ ቤተ እስራኤል ማኅበረሰብ ምኩራብ። እዚህ የቤተ እስራኤልን ወግ እንጠብቃለን፣ በዓላትን በአንድነት እናከብራለን፤ የማኅበረሰባችንን ታሪክ ማወቅ ለሚፈልግ ሁሉ በራችን ክፍት ነው።',
+    ctaTour: 'ነጻ ጉብኝት ይያዙ',
+    ctaDonate: 'ይለግሱ',
+    heroAlt: 'ሥዕል፦ የኢየሩሳሌም አሮጌ ከተማ ቅጥር፣ መሶብና ጀበና፣ ከኢትዮጵያ ጥለት ጋር',
+    arrow: '→',
+    quick: [
+      { href: '/tours', icon: 'tours.png', title: 'ምኩራቡን ይጎብኙ', text: 'በአማርኛ፣ በዕብራይስጥ ወይም በእንግሊዝኛ ነጻ ጉብኝት', cta: 'ይያዙ' },
+      { href: '/events', icon: 'events.png', title: 'ዝግጅቶች', text: 'በዓላት፣ የባህል ምሽቶችና እንቅስቃሴዎች። ሁሉም ተጋብዘዋል', cta: 'ዝግጅቶችን ይመልከቱ' },
+      { href: '/history', icon: 'origins.svg', title: 'ታሪክና ባህል', text: 'የቤተ እስራኤል ታሪክ፣ ከኢትዮጵያ እስከ ኢየሩሳሌም', cta: 'ያንብቡ' },
+      { href: '/donate', icon: 'donate.png', title: 'ልገሳ', text: 'ተጨማሪ ዝግጅቶች፣ የማኅበረሰብ እንቅስቃሴዎችና የአርቲስቶች ፕሮጀክት', cta: 'ይለግሱ' },
+    ],
+    histEyebrow: 'ታሪክና ባህል',
+    histTitle: 'የእምነትና የኢየሩሳሌም ናፍቆት ታሪክ',
+    histIntro: 'ለብዙ መቶ ዓመታት የኢትዮጵያ ቤተ እስራኤል ኦሪትን፣ ሰንበትንና ወደ ኢየሩሳሌም የመመለስ ሕልምን ጠብቀዋል። ዛሬ ይህ ሕልም በኔቬ ያዕቆብ በሚገኘው ምኩራባችን ሕያው ነው።',
+    read: 'ያንብቡ',
+    celEyebrow: 'በምኩራቡ የደስታ በዓላት',
+    celTitle: 'ከእኛ ጋር ያክብሩ',
+    celText: 'ባር ሚጽቫ፣ የሙሽራ ሰንበት፣ ሄና ወይም ማንኛውም የቤተሰብ ደስታ። ምኩራባችን በሞቀና በባህላዊ ድባብ ለበዓላችሁ ክፍት ነው።',
+    celCta: 'ዝርዝርና ዋጋ',
+    donEyebrow: 'ልገሳዎ እንዴት ይረዳል',
+    donTitle1: 'የምኩራቡ እንቅስቃሴዎች',
+    donTitle2: 'በእናንተ ድጋፍ ይካሄዳሉ።',
+    donText: 'ዝግጅቶቻችን፣ የማኅበረሰብ እንቅስቃሴዎቻችንና የአርቲስቶች ፕሮጀክታችን በልገሳ ይሸፈናሉ። እያንዳንዱ ልገሳ ተጨማሪ ዝግጅቶችን እንድናካሂድ፣ ብዙ ቤተሰቦችን እንድንደርስና የማኅበረሰቡን ወጣት አርቲስቶች እንድንደግፍ ይረዳናል።',
+    donBy: 'ልገሳዎቹን የሚቀበለው ',
+    donByAfter: ' ነው።',
+    association: site.association.nameAm,
+    donCta: 'መለገስ እፈልጋለሁ',
+    pillars: [
+      { icon: 'events.png', title: 'ዝግጅቶች', text: 'በዓላት፣ የባህል ምሽቶችና ንግግሮች' },
+      { icon: 'community.png', title: 'የማኅበረሰብ እንቅስቃሴዎች', text: 'ለሁሉም ዕድሜ፣ ከልጆች እስከ አረጋውያን' },
+      { icon: 'artists.svg', title: 'የአርቲስቶች ፕሮጀክት', text: 'ኤግዚቢሽኖች፣ የሥልጠና መድረኮችና ለወጣት ሠዓሊዎች ድጋፍ' },
+    ],
+  },
 }[lang];
 ---
 
 <Base>
-  <section class:list={['hero', { 'hero--art': site.heroImage, 'hero--ltr': lang === 'en' }]}>
+  <section class:list={['hero', { 'hero--art': site.heroImage, 'hero--ltr': lang !== 'he' }]}>
     <div class="container hero__grid">
       <div class="hero__text">
-        <span class="hero__eyebrow">{content.eyebrow} · <span lang="am" dir="ltr">እንኳን ደህና መጣችሁ</span></span>
+        <span class="hero__eyebrow">
+          {content.eyebrow}
+          {lang !== 'am' && <> · <span lang="am" dir="ltr">እንኳን ደህና መጣችሁ</span></>}
+        </span>
         <h1>{content.title1}<br /><span class="hero__accent">{content.title2}</span></h1>
         <p class="hero__lead">{content.lead}</p>
         <div class="btn-row">
@@ -199,7 +242,7 @@ const content = {
         <span class="eyebrow">{content.donEyebrow}</span>
         <h2>{content.donTitle1}<br />{content.donTitle2}</h2>
         <p>{content.donText}</p>
-        <p>{content.donBy} <strong>{content.association}</strong>.</p>
+        <p>{content.donBy}<strong>{content.association}</strong>{content.donByAfter}</p>
         <a class="btn btn--gold btn--lg" href={L('/donate')}>{content.donCta}</a>
       </div>
       <ul class="pillars">

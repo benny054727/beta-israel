@@ -15,14 +15,21 @@ const L = (p: string) => lurl(lang, p);
 const c = site.celebrations;
 
 const money = (n: number) => (he ? `${n.toLocaleString('he-IL')} ₪` : `₪${n.toLocaleString('en-US')}`);
+/** בוחר את הטקסט בשפה הנכונה מתוך ההגדרות (title / titleEn / titleAm) */
+const pick = (o: Record<string, any>, key: string): string =>
+  lang === 'he' ? o[key] : lang === 'en' ? o[key + 'En'] : (o[key + 'Am'] ?? o[key + 'En']);
 
 const form = site.celebrationFormUrl;
 const formSrc = form ? form + (form.includes('?') ? '&' : '?') + 'embedded=true' : '';
-const waText = he ? 'שלום, אשמח לברר על אירוע בבית הכנסת' : "Hello, I'd like to ask about holding an event at the synagogue";
+const waText = {
+  he: 'שלום, אשמח לברר על אירוע בבית הכנסת',
+  en: "Hello, I'd like to ask about holding an event at the synagogue",
+  am: 'ሰላም፣ በምኩራቡ ዝግጅት ስለማድረግ መጠየቅ እፈልጋለሁ',
+}[lang];
 const wa = site.whatsapp ? `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(waText)}` : '';
 
-const t = he
-  ? {
+const texts = {
+  he: {
       title: 'שמחות בבית הכנסת',
       metaTitle: 'שמחות ואירועים',
       lead: 'בר מצווה, שבת חתן, חינה או כל שמחה משפחתית: בית הכנסת פתוח לשמחות שלכם.',
@@ -48,8 +55,8 @@ const t = he
       onContact: 'דרך עמוד צור קשר',
       details: '. כתבו את סוג האירוע, התאריך המבוקש ומספר האורחים.',
       formTitle: 'טופס הזמנת אירוע',
-    }
-  : {
+    },
+  en: {
       title: 'Celebrations at the Synagogue',
       metaTitle: 'Celebrations',
       lead: 'A bar mitzvah, Shabbat Chatan, henna or any family simcha: our synagogue is open for your celebrations.',
@@ -75,7 +82,36 @@ const t = he
       onContact: 'through our contact page',
       details: '. Please include the type of event, preferred date and number of guests.',
       formTitle: 'Event booking form',
-    };
+    },
+  am: {
+      title: 'በምኩራቡ የደስታ በዓላት',
+      metaTitle: 'የደስታ በዓላት',
+      lead: 'ባር ሚጽቫ፣ የሙሽራ ሰንበት፣ ሄና ወይም ማንኛውም የቤተሰብ ደስታ፦ ምኩራባችን ለበዓላችሁ ክፍት ነው።',
+      description: 'በኢየሩሳሌም ኔቬ ያዕቆብ በሚገኘው የቤተ እስራኤል ምኩራብ በዓልዎን ያክብሩ፦ ባር ሚጽቫ፣ የሙሽራ ሰንበት፣ ሄናና የቤተሰብ በዓላት።',
+      intro: 'በማኅበረሰቡ ምኩራብ ማክበር በቤት እንደማክበር ነው። በምኩራቡ ሠራተኞች ድጋፍ፣ በሞቀና በባህላዊ ድባብ የቤተሰብ በዓላትን እናስተናግዳለን።',
+      capacity: (n: string) => `ምኩራቡ እስከ ${n} እንግዶችን ማስተናገድ ይችላል።`,
+      packagesTitle: 'የዝግጅት ዓይነቶችና ዋጋዎች',
+      examplesNote: 'የሚታዩት ዋጋዎች ለምሳሌ ብቻ ናቸው። የመጨረሻው ዋጋ እንደ ዝግጅቱ ዓይነት፣ እንደ እንግዶቹ ብዛትና እንደ ሳምንቱ ቀን በስምምነት ይወሰናል።',
+      from: 'ከ ',
+      extrasTitle: 'ተጨማሪ አገልግሎቶች',
+      howTitle: 'እንዴት ማስያዝ ይቻላል?',
+      steps: [
+        { n: '1', title: 'ያግኙን', text: 'የዝግጅቱን ዓይነት፣ ቀኑንና የእንግዶቹን ብዛት በመግለጽ ቅጹን ይሙሉ ወይም መልእክት ይላኩ።' },
+        { n: '2', title: 'አብረን እናቅዳለን', text: 'ቀኑ ክፍት መሆኑን አረጋግጠን፣ ዝግጅቱን እናስተካክልና በዋጋው እንስማማለን።' },
+        { n: '3', title: 'ያክብሩ', text: 'መጥተው በምኩራቡ አብረን እንደሰታለን። ቀሪውን እኛ እንንከባከባለን።' },
+      ],
+      shabbat: 'በሰንበትና በበዓላት የሚደረጉ ዝግጅቶች በሃይማኖታዊ ሕግ መሠረትና ከምኩራቡ አስተዳደር ጋር በመመካከር ይካሄዳሉ።',
+      bookTitle: 'ዝግጅት ለመጠየቅ ወይም ለማስያዝ',
+      formSoon: 'የማስያዣ ቅጹ በቅርቡ ይዘጋጃል',
+      formSoonText: (link: string) => link,
+      contactVia: 'እስከዚያው ድረስ ማግኘት ይችላሉ፦',
+      onWhatsapp: 'በዋትስአፕ',
+      onContact: 'በ"ያግኙን" ገጽ በኩል',
+      details: '። የዝግጅቱን ዓይነት፣ የሚፈልጉትን ቀንና የእንግዶቹን ብዛት ይጻፉ።',
+      formTitle: 'የዝግጅት ማስያዣ ቅጽ',
+    },
+};
+const t = texts[lang];
 ---
 
 <Base title={t.metaTitle} description={t.description}>
@@ -99,8 +135,8 @@ const t = he
           c.packages.map((p) => (
             <li class="card package">
               <img class="badge" src={url(`/icons/${p.icon}`)} alt="" width="64" height="64" loading="lazy" />
-              <h3>{he ? p.title : p.titleEn}</h3>
-              <p>{he ? p.text : p.textEn}</p>
+              <h3>{pick(p, 'title')}</h3>
+              <p>{pick(p, 'text')}</p>
               <p class="price">
                 {'from' in p && p.from && <span class="price__from">{t.from}</span>}
                 {money(p.price)}
@@ -115,7 +151,7 @@ const t = he
         {
           c.extras.map((x) => (
             <li>
-              <span>{he ? x.title : x.titleEn}</span>
+              <span>{pick(x, 'title')}</span>
               <strong>{money(x.price)}</strong>
             </li>
           ))

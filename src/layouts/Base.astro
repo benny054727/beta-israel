@@ -4,7 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import BottomNav from '../components/BottomNav.astro';
 import { url } from '../config';
-import { ui, lurl, pagePath, langFromPath } from '../i18n';
+import { ui, lurl, pagePath, langFromPath, languages } from '../i18n';
 
 interface Props {
   title?: string;
@@ -17,8 +17,7 @@ const { title, description = t.description } = Astro.props;
 const fullTitle = title ? `${title} | ${t.siteName}` : t.siteName;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const path = pagePath(Astro.url.pathname);
-const heHref = new URL(lurl('he', path), Astro.site);
-const enHref = new URL(lurl('en', path), Astro.site);
+const alternates = languages.map((l) => ({ code: l.code, href: new URL(lurl(l.code, path), Astro.site) }));
 ---
 
 <!doctype html>
@@ -29,9 +28,8 @@ const enHref = new URL(lurl('en', path), Astro.site);
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" hreflang="he" href={heHref} />
-    <link rel="alternate" hreflang="en" href={enHref} />
-    <link rel="alternate" hreflang="x-default" href={heHref} />
+    {alternates.map((a) => <link rel="alternate" hreflang={a.code} href={a.href} />)}
+    <link rel="alternate" hreflang="x-default" href={alternates[0].href} />
     <link rel="icon" type="image/svg+xml" href={url('/favicon.svg')} />
     <meta name="theme-color" content="#5b3a29" />
     <link rel="manifest" href={url('/manifest.webmanifest')} />
@@ -55,6 +53,13 @@ const enHref = new URL(lurl('en', path), Astro.site);
   <body>
     <a class="skip-link" href="#main">{t.skip}</a>
     <Header />
+    {
+      t.reviewNote && (
+        <p class="review-note" role="note">
+          {t.reviewNote} <a href={lurl(lang, '/contact')}>{ui[lang].contact}</a>
+        </p>
+      )
+    }
     <main id="main" tabindex="-1">
       <slot />
     </main>
@@ -81,6 +86,15 @@ const enHref = new URL(lurl('en', path), Astro.site);
   }
   main:focus {
     outline: none;
+  }
+  .review-note {
+    margin: 0;
+    padding: 8px 16px;
+    background: #fff3d6;
+    border-bottom: 1px solid #f0d58f;
+    color: var(--ink);
+    font-size: 0.92rem;
+    text-align: center;
   }
   /* מקום לסרגל הניווט התחתון בטלפון, כדי שלא יסתיר את סוף העמוד */
   @media (max-width: 1199px) {

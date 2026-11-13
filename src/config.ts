@@ -17,6 +17,7 @@ export const site = {
   // 📍 פרטי בית הכנסת
   address: 'שכונת נווה יעקב, ירושלים', // TODO: כתובת מדויקת (רחוב ומספר)
   addressEn: 'Neve Yaakov, Jerusalem', // הכתובת באנגלית
+  addressAm: 'ኔቬ ያዕቆብ፣ ኢየሩሳሌም', // הכתובת באמהרית
   mapQuery: 'נווה יעקב, ירושלים', // מה שיחפשו במפה – לעדכן לכתובת המדויקת
 
   // 📞 יצירת קשר
@@ -28,6 +29,7 @@ export const site = {
   association: {
     name: 'אגודת אנדנט',
     nameEn: 'Andenet Association',
+    nameAm: 'የአንድነት ማኅበር',
     registrationNumber: '', // TODO: מספר עמותה (ע"ר)
     hasSection46: false, // לשנות ל-true רק אחרי שמוודאים שיש אישור סעיף 46 בתוקף
   },
@@ -56,41 +58,49 @@ export const site = {
         icon: 'synagogue.svg',
         title: 'בר מצווה / בת מצווה',
         titleEn: 'Bar / Bat Mitzvah',
+        titleAm: 'ባር ሚጽቫ / ባት ሚጽቫ',
         text: 'עלייה לתורה בבית הכנסת, וקידוש חגיגי במקום למשפחה ולאורחים.',
         textEn: 'Being called up to the Torah at the synagogue, followed by a festive kiddush for family and guests.',
+        textAm: 'በምኩራቡ ኦሪትን ለማንበብ መጠራት፣ ከዚያም ለቤተሰብና ለእንግዶች የበዓል ቂዱሽ።',
         price: 1500,
       },
       {
         icon: 'orit.svg',
         title: 'שבת חתן',
         titleEn: 'Shabbat Chatan',
+        titleAm: 'የሙሽራ ሰንበት',
         text: 'עלייה לתורה לחתן בשבת שלפני החתונה, עם קידוש לקהל ולמשפחה.',
         textEn: 'An aliyah for the groom on the Shabbat before the wedding, with a kiddush for the congregation and family.',
+        textAm: 'ከሠርጉ በፊት ባለው ሰንበት ሙሽራው ኦሪትን ለማንበብ ይጠራል፤ ለጉባኤውና ለቤተሰብ ቂዱሽ ይደረጋል።',
         price: 1800,
       },
       {
         icon: 'celebrations.png',
         title: 'חינה',
         titleEn: 'Henna',
+        titleAm: 'ሄና',
         text: 'ערב חינה מסורתי באולם בית הכנסת, עד 4 שעות.',
         textEn: 'A traditional henna evening in the synagogue hall, up to 4 hours.',
+        textAm: 'በምኩራቡ አዳራሽ ባህላዊ የሄና ምሽት፣ እስከ 4 ሰዓት።',
         price: 2500,
       },
       {
         icon: 'community.png',
         title: 'אירוע חגיגי אחר',
         titleEn: 'Other celebrations',
+        titleAm: 'ሌሎች የደስታ በዓላት',
         text: 'ברית, אירוסין, יום הולדת, מסיבת אירוסין או כל שמחה משפחתית.',
         textEn: 'A brit milah, engagement, birthday or any family simcha.',
+        textAm: 'ብሪት ሚላ፣ ቀለበት ማሰር፣ የልደት በዓል ወይም ማንኛውም የቤተሰብ ደስታ።',
         price: 1200,
         from: true, // "החל מ-"
       },
     ],
     // תוספות אפשריות (לדוגמה)
     extras: [
-      { title: 'מערכת הגברה', titleEn: 'Sound system', price: 400 },
-      { title: 'שולחנות, כיסאות ומפות', titleEn: 'Tables, chairs and tablecloths', price: 350 },
-      { title: 'ניקיון אחרי האירוע', titleEn: 'Cleaning after the event', price: 300 },
+      { title: 'מערכת הגברה', titleEn: 'Sound system', titleAm: 'የድምፅ ማጉያ', price: 400 },
+      { title: 'שולחנות, כיסאות ומפות', titleEn: 'Tables, chairs and tablecloths', titleAm: 'ጠረጴዛዎች፣ ወንበሮችና የጠረጴዛ ልብሶች', price: 350 },
+      { title: 'ניקיון אחרי האירוע', titleEn: 'Cleaning after the event', titleAm: 'ከዝግጅቱ በኋላ ጽዳት', price: 300 },
     ],
   },
 
@@ -98,7 +108,7 @@ export const site = {
   prayerTimes: [
     // { label: 'שחרית שבת', labelEn: 'Shabbat morning', time: '08:00' },
     // { label: 'מנחה וערבית', time: 'לפי שעת השקיעה' },
-  ] as { label: string; labelEn?: string; time: string }[],
+  ] as { label: string; labelEn?: string; labelAm?: string; time: string }[],
 
   // 🌐 רשתות חברתיות (אם אין – להשאיר ריק)
   social: {

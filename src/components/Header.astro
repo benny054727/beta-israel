@@ -1,13 +1,12 @@
 ---
 import { url } from '../config';
 import { ui, lurl, pagePath, langFromPath } from '../i18n';
+import LangSwitch from './LangSwitch.astro';
 
 const lang = langFromPath(Astro.url.pathname);
-const other = lang === 'he' ? 'en' : 'he';
 const t = ui[lang];
 const current = pagePath(Astro.url.pathname);
 const isActive = (href: string) => current === href || current.startsWith(href + '/');
-const switchHref = lurl(other, current);
 ---
 
 <header class="header">
@@ -34,15 +33,14 @@ const switchHref = lurl(other, current);
           ))
         }
       </ul>
-      <a class="lang-switch" href={switchHref} hreflang={other} lang={other} title={t.switchTitle}>{t.switchLabel}</a>
+      <LangSwitch />
       <a class="btn btn--primary" href={lurl(lang, '/donate')}>{t.donate}</a>
     </nav>
 
     <!-- טלפון: קישורים משניים קטנים למעלה -->
     <ul class="header__mini" aria-label={t.moreLinks}>
-      <li><a href={lurl(lang, '/about')} aria-current={isActive('/about') ? 'page' : undefined}>{t.about}</a></li>
       <li><a href={lurl(lang, '/contact')} aria-current={isActive('/contact') ? 'page' : undefined}>{t.contact}</a></li>
-      <li><a class="lang-switch" href={switchHref} hreflang={other} lang={other} title={t.switchTitle}>{lang === 'he' ? 'EN' : 'עב'}</a></li>
+      <li><LangSwitch /></li>
     </ul>
   </div>
 </header>
@@ -128,6 +126,7 @@ const switchHref = lurl(other, current);
   }
   .header__mini a {
     display: block;
+    white-space: nowrap;
     padding: 10px 10px;
     border-radius: 8px;
     font-weight: 500;
@@ -140,24 +139,6 @@ const switchHref = lurl(other, current);
     background: var(--sand);
   }
 
-  .lang-switch {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 40px;
-    min-width: 44px;
-    padding: 0 12px;
-    border: 1.5px solid var(--earth);
-    border-radius: 999px;
-    color: var(--earth) !important;
-    font-weight: 700 !important;
-    font-size: 0.9rem !important;
-    text-decoration: none;
-  }
-  .lang-switch:hover {
-    background: var(--earth) !important;
-    color: #fff !important;
-  }
   .header__mini {
     align-items: center;
   }
@@ -175,10 +156,13 @@ const switchHref = lurl(other, current);
       height: 34px;
     }
   }
-  @media (max-width: 359px) {
+  @media (max-width: 399px) {
     .brand small {
       display: none;
     }
+  }
+  .header__mini {
+    gap: 8px;
   }
 
   @media (max-width: 1199px) {

@@ -1,0 +1,93 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ComingSoon from '../../components/ComingSoon.astro';
+import { site, url } from '../../config';
+import { lurl } from '../../i18n';
+const L = (p: string) => lurl('am', p);
+
+const form = site.tourFormUrl;
+const formSrc = form ? form + (form.includes('?') ? '&' : '?') + 'embedded=true' : '';
+const wa = site.whatsapp
+  ? `https://wa.me/${site.whatsapp}?text=${encodeURIComponent('ሰላም፣ ምኩራቡን ለመጎብኘት ቀጠሮ መያዝ እፈልጋለሁ')}`
+  : '';
+---
+
+<Base title="ጉብኝት" description="በኢየሩሳሌም ኔቬ ያዕቆብ የሚገኘውን የቤተ እስራኤል ምኩራብ በአማርኛ፣ በዕብራይስጥ ወይም በእንግሊዝኛ በነጻ ይጎብኙ።">
+  <PageHero title="ምኩራቡን ይጎብኙ" lead="የኢትዮጵያ ይሁዲዎችን ወግ፣ ታሪክና ባህል በቅርበት ይወቁ።" icon="tours.png" />
+
+  <section class="section">
+    <div class="container grid grid--3">
+      <div class="card">
+        <img class="badge" src={url('/icons/orit.svg')} alt="" width="64" height="64" loading="lazy" />
+        <h2 class="h3">በሦስት ቋንቋዎች</h2>
+        <p>ጉብኝቱ በ<strong>አማርኛ</strong>፣ በ<strong>ዕብራይስጥ</strong> ወይም በ<strong>እንግሊዝኛ</strong> ይካሄዳል።</p>
+      </div>
+      <div class="card">
+        <img class="badge" src={url('/icons/community.png')} alt="" width="64" height="64" loading="lazy" />
+        <h2 class="h3">ለሁሉም ቡድን</h2>
+        <p>ቤተሰቦች፣ ትምህርት ቤቶች፣ የወጣቶች ቡድኖች፣ ድርጅቶች፣ ጎብኚዎችና ከውጭ አገር የሚመጡ የይሁዲ ማኅበረሰቦች።</p>
+      </div>
+      <div class="card">
+        <img class="badge" src={url('/icons/donate.png')} alt="" width="64" height="64" loading="lazy" />
+        <h2 class="h3">በነጻ</h2>
+        <p>ጉብኝቱ ነጻ ነው። በመጨረሻ እንደ አቅምዎ ለምኩራቡ እንቅስቃሴዎች ቢለግሱ ደስ ይለናል።</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="container">
+      <h2>በጉብኝቱ ምን ያያሉ?</h2>
+      <ul class="list">
+        <li>ምኩራቡንና የቤተ እስራኤልን የጸሎት ወግ</li>
+        <li>የማኅበረሰቡን ታሪክ፦ ከኢትዮጵያ መንደሮች እስከ ኢየሩሳሌም</li>
+        <li>ቄሶችን፣ በግዕዝ የተጻፈውን ኦሪትና ሲግድን ጨምሮ በዓላትን</li>
+        <li>የዛሬውን ማኅበረሰብና ወጣት አርቲስቶቹን</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="book">
+    <div class="container">
+      <h2>ጉብኝት ይያዙ</h2>
+      {
+        formSrc ? (
+          <iframe class="embed" title="የጉብኝት ማስያዣ ቅጽ" src={formSrc} height="1100" loading="lazy" />
+        ) : (
+          <ComingSoon title="የማስያዣ ቅጹ በቅርቡ ይዘጋጃል">
+            <p>
+              እስከዚያው ድረስ ጉብኝት ማዘጋጀት ይችላሉ፦{' '}
+              {wa ? (
+                <a href={wa} target="_blank" rel="noopener">በዋትስአፕ</a>
+              ) : (
+                <a href={L('/contact')}>በ"ያግኙን" ገጽ በኩል</a>
+              )}
+              ። የሚፈልጉትን ቀን፣ የቡድኑን ብዛትና ቋንቋ ይጻፉ።
+            </p>
+          </ComingSoon>
+        )
+      }
+      <p class="after">
+        በጉብኝቱ ተደሰቱ? <a href={L('/donate')}>ትንሽ ልገሳ ተጨማሪ ዝግጅቶችንና እንቅስቃሴዎችን እንድናካሂድ ይረዳናል</a>።
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .h3 {
+    font-size: 1.25rem;
+  }
+  .list {
+    padding-inline-start: 1.2em;
+    font-size: 1.1rem;
+  }
+  .list li {
+    margin-bottom: 0.4em;
+  }
+  .after {
+    margin-top: 24px;
+    font-size: 1.1rem;
+  }
+</style>

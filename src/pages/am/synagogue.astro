@@ -1,0 +1,110 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ComingSoon from '../../components/ComingSoon.astro';
+import { site, url } from '../../config';
+import { lurl } from '../../i18n';
+const L = (p: string) => lurl('am', p);
+import PhotoPlaceholder from '../../components/PhotoPlaceholder.astro';
+
+const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(site.mapQuery)}&hl=am&output=embed`;
+---
+
+<Base title="ምኩራቡ" description="በኢየሩሳሌም ኔቬ ያዕቆብ ሰፈር የሚገኘው የቤተ እስራኤል ምኩራብ።">
+  <PageHero title="ምኩራቡ" lead="በኢየሩሳሌም ኔቬ ያዕቆብ ሰፈር የሚገኝ የጸሎት፣ የወግና የማኅበረሰብ ቤት።" icon="synagogue.svg" />
+
+  <section class="section">
+    <div class="container split">
+      <div class="prose">
+        <h2>ስለ ምኩራቡ</h2>
+        <p>
+          በኔቬ ያዕቆብ የሚገኘው የቤተ እስራኤል ምኩራብ የኢትዮጵያ ይሁዲዎች የጸሎት ቤት የሆነውን የ<strong>መስጊድ</strong>ን
+          ወግ ይቀጥላል። ማኅበረሰቡ እዚህ በራሱ ወግ ይጸልያል፣ ሲግድን ጨምሮ በዓላትን ያከብራል፤ ሁሉም ትውልድም እዚህ ይሰበሰባል።
+        </p>
+        <p>
+          ምኩራቡ ለሕዝብም ክፍት ነው፦ ለትምህርት ቤቶች፣ ለቡድኖች፣ ለጎብኚዎችና ስለ ኢትዮጵያ ይሁዲዎች ወግ ማወቅ ለሚፈልግ ሁሉ።
+          <a href={L('/tours')}>ነጻ ጉብኝት ማስያዝ ይችላሉ</a>።
+        </p>
+      </div>
+      <PhotoPlaceholder label="የምኩራቡ ፎቶዎች በቅርቡ ይጨመራሉ" />
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="container grid grid--2">
+      <div class="card">
+        <img class="badge" src={url('/icons/synagogue.svg')} alt="" width="64" height="64" loading="lazy" />
+        <h2 class="h3">የጸሎት ሰዓቶች</h2>
+        {
+          site.prayerTimes.length > 0 ? (
+            <table class="times">
+              <tbody>
+                {site.prayerTimes.map((t) => (
+                  <tr>
+                    <th scope="row">{t.labelAm ?? t.label}</th>
+                    <td>{t.time}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <p>የጸሎት ሰዓቶች በቅርቡ እዚህ ይለጠፋሉ። እስከዚያው <a href={L('/contact')}>ያግኙን</a>።</p>
+          )
+        }
+      </div>
+
+      <div class="card">
+        <img class="badge" src={url('/icons/tours.png')} alt="" width="64" height="64" loading="lazy" />
+        <h2 class="h3">እንዴት መድረስ ይቻላል</h2>
+        <p><strong>{site.addressAm}</strong></p>
+        <p>
+          <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.mapQuery)}`} target="_blank" rel="noopener">በGoogle Maps ይክፈቱ</a>
+          ·
+          <a href={`https://waze.com/ul?q=${encodeURIComponent(site.mapQuery)}`} target="_blank" rel="noopener">በWaze ይጓዙ</a>
+        </p>
+        <p class="muted">ስለ ሕዝብ ትራንስፖርት፣ ስለ መኪና ማቆሚያና ስለ ተደራሽነት መረጃ በቅርቡ ይጨመራል።</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>ካርታ</h2>
+      <iframe class="embed" title={`ካርታ፦ ${site.addressAm}`} src={mapSrc} height="380" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .split {
+    display: grid;
+    gap: 32px;
+    align-items: center;
+  }
+  @media (min-width: 860px) {
+    .split {
+      grid-template-columns: 1.2fr 1fr;
+      gap: 56px;
+    }
+  }
+  .h3 {
+    font-size: 1.3rem;
+  }
+  .times {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .times th,
+  .times td {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    text-align: start;
+  }
+  .times td {
+    text-align: end;
+    font-weight: 700;
+  }
+  .muted {
+    color: var(--ink-soft);
+  }
+</style>

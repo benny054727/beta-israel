@@ -1,0 +1,41 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ComingSoon from '../../components/ComingSoon.astro';
+import { site, url } from '../../config';
+import { lurl } from '../../i18n';
+const L = (p: string) => lurl('am', p);
+---
+
+<Base title="የግላዊነት ፖሊሲ">
+  <PageHero title="የግላዊነት ፖሊሲ" />
+  <section class="section">
+    <div class="container prose">
+      <p>ግላዊነትዎን እናከብራለን። ይህ ገጽ ድረ-ገጹ ምን መረጃ እንደሚሰበስብና መረጃው እንዴት ጥቅም ላይ እንደሚውል ያብራራል።</p>
+      <h2>እርስዎ የሚሰጡን መረጃ</h2>
+      <p>
+        የጉብኝት ማስያዣ ወይም የመገናኛ ቅጽ ሲሞሉ፣ የሰጡንን መረጃ (እንደ ስም፣ ስልክ ቁጥርና ኢሜይል) እንቀበላለን። መረጃውን የምንጠቀመው
+        እርስዎን ለማግኘት፣ ጉብኝትዎን ለማዘጋጀት ወይም መልእክትዎን ለመመለስ ብቻ ነው። ያለ እርስዎ ፈቃድ ለሌሎች አይሰጥም፣ ለማስታወቂያም አይውልም።
+      </p>
+      <h2>ልገሳ</h2>
+      <p>
+        ልገሳዎች በውጭ፣ ደህንነቱ በተጠበቀ የክፍያ ድረ-ገጽ ይፈጸማሉ። የእኛ ድረ-ገጽ የክሬዲት ካርድ መረጃን አያይም፣ አያስቀምጥምም።
+        የልገሳ መዝገቦች ደረሰኝ ለመስጠትና በሕግ በሚጠየቀው መሠረት ሪፖርት ለማድረግ በ{site.association.nameAm} ይቀመጣሉ።
+      </p>
+      <h2>የውጭ አገልግሎቶች</h2>
+      <p>ይህ ድረ-ገጽ የGoogle አገልግሎቶችን (ፊደላት፣ ካርታ፣ ቀን መቁጠሪያና ቅጾች) እና የውጭ የክፍያ አቅራቢን ይጠቀማል። እነዚህ አገልግሎቶች የራሳቸው የግላዊነት ፖሊሲ አላቸው።</p>
+      <h2>ፎቶዎች</h2>
+      <p>
+        የዝግጅቶች ፎቶዎች የሚለጠፉት በፎቶው ላይ ያሉት ሰዎች ሲፈቅዱ ነው፤ ልጆች ከሆኑ ደግሞ ወላጆቻቸው ሲፈቅዱ። ፎቶ እንዲወገድ ይፈልጋሉ?
+        <a href={L('/contact')}>ያግኙን</a>፤ እናስወግደዋለን።
+      </p>
+      <p class="muted">ለመጨረሻ ጊዜ የተሻሻለው፦ ኅዳር 2026</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .muted {
+    color: var(--ink-soft);
+  }
+</style>

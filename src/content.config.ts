@@ -26,4 +26,10 @@ const historyEn = defineCollection({
   schema,
 });
 
-export const collections = { history, historyEn };
+/** מאמרים באמהרית – בתיקייה src/content/history-am */
+const historyAm = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/history-am' }),
+  schema,
+});
+
+export const collections = { history, historyEn, historyAm };

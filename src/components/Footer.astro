@@ -1,6 +1,6 @@
 ---
 import { site } from '../config';
-import { ui, lurl, langFromPath } from '../i18n';
+import { ui, lurl, langFromPath, languages, pagePath } from '../i18n';
 const lang = langFromPath(Astro.url.pathname);
 const t = ui[lang];
 const year = new Date().getFullYear();
@@ -29,7 +29,7 @@ const a = site.association;
     <div>
       <p class="footer__title">{t.association}</p>
       <p>
-        {t.donationsBy} {t.association}{a.registrationNumber && <> ({t.regNo} {a.registrationNumber})</>}.
+        {t.donationsBefore}{t.association}{a.registrationNumber && <> ({t.regNo} {a.registrationNumber})</>}{t.donationsAfter}
       </p>
       <a class="btn btn--light" href={lurl(lang, '/donate')}>{t.toDonate}</a>
     </div>
@@ -40,7 +40,15 @@ const a = site.association;
     <ul>
       <li><a href={lurl(lang, '/accessibility')}>{t.accessibility}</a></li>
       <li><a href={lurl(lang, '/privacy')}>{t.privacy}</a></li>
-      <li><a href={lurl(lang === 'he' ? 'en' : 'he', '/')} lang={lang === 'he' ? 'en' : 'he'}>{t.switchLabel}</a></li>
+      {
+        languages
+          .filter((l) => l.code !== lang)
+          .map((l) => (
+            <li>
+              <a href={lurl(l.code, pagePath(Astro.url.pathname))} lang={l.code} hreflang={l.code}>{l.label}</a>
+            </li>
+          ))
+      }
     </ul>
   </div>
 </footer>

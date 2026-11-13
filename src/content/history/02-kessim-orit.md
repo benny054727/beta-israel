@@ -2,7 +2,7 @@
 title: הקייסים, האורית והמסגיד
 description: המנהיגות הדתית של הקהילה, ספר התורה בגעז ובית התפילה המסורתי.
 order: 2
-icon: 📜
+icon: orit.svg
 reviewed: false
 sources: []
 ---

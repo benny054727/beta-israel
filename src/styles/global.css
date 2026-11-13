@@ -10,11 +10,16 @@
   --terracotta-dark: #823520;
   --gold: #c9962b;
   --green: #2f5d50;
+  --green-dark: #22463c;
+  --night: #3a2519;
   --border: #e3d5bf;
-  --radius: 14px;
-  --shadow: 0 6px 24px rgb(91 58 41 / 0.08);
-  --max: 1120px;
+  --radius: 18px;
+  --shadow: 0 10px 30px rgb(91 58 41 / 0.09);
+  --max: 1160px;
   --font: 'Heebo', 'Noto Sans Ethiopic', 'Rubik', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  --font-display: 'Frank Ruhl Libre', 'Noto Sans Ethiopic', 'David Libre', Georgia, serif;
+  /* דוגמת טיבב – בהשראת שולי הבד הארוג של הנטלה האתיופית */
+  --tibeb: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2236%22%20height%3D%2218%22%20viewBox%3D%220%200%2036%2018%22%3E%3Crect%20width%3D%2236%22%20height%3D%2218%22%20fill%3D%22%235b3a29%22%2F%3E%3Cpath%20d%3D%22M0%201.5h36M0%2016.5h36%22%20stroke%3D%22%23c9962b%22%20stroke-width%3D%222%22%2F%3E%3Cpath%20d%3D%22M9%204l5%205-5%205-5-5z%22%20fill%3D%22%23c45a36%22%2F%3E%3Cpath%20d%3D%22M9%207l2%202-2%202-2-2z%22%20fill%3D%22%23fbf6ee%22%2F%3E%3Cpath%20d%3D%22M27%205.5l3.5%203.5-3.5%203.5-3.5-3.5z%22%20fill%3D%22%233f7a69%22%2F%3E%3Cpath%20d%3D%22M18%204l1.6%202-1.6%202-1.6-2zM18%2010l1.6%202-1.6%202-1.6-2z%22%20fill%3D%22%23c9962b%22%2F%3E%3Cpath%20d%3D%22M0%204l1.6%202-1.6%202zM0%2010l1.6%202-1.6%202zM36%204l-1.6%202%201.6%202zM36%2010l-1.6%202%201.6%202z%22%20fill%3D%22%23c9962b%22%2F%3E%3C%2Fsvg%3E");
 }
 
 *,
@@ -66,12 +71,18 @@ h3 {
   margin: 0 0 0.6em;
   text-wrap: balance;
 }
+h1,
+h2 {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
 h1 {
-  font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 800;
+  font-size: clamp(2.2rem, 6vw, 3.6rem);
+  font-weight: 900;
+  line-height: 1.1;
 }
 h2 {
-  font-size: clamp(1.5rem, 3.4vw, 2rem);
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
   font-weight: 700;
 }
 h3 {
@@ -100,6 +111,24 @@ p {
 .section--sand {
   background: var(--sand);
 }
+/* קטע בצבע מלא – שובר את רצף הבז' */
+.section--green {
+  background:
+    radial-gradient(circle at 15% 20%, rgb(255 255 255 / 0.06) 0 2px, transparent 3px) 0 0 / 28px 28px,
+    var(--green);
+  color: #eef4f1;
+}
+.section--green h2,
+.section--green h3 {
+  color: #fff;
+}
+.section--green .eyebrow {
+  color: #f0c86a;
+}
+.section--green .section__intro,
+.section--green p {
+  color: #dfe9e5;
+}
 .section__intro {
   max-width: 680px;
   color: var(--ink-soft);
@@ -114,18 +143,29 @@ p {
   margin-bottom: 0.4em;
 }
 
-/* פס דוגמה בהשראת אריגה וסלסלות אתיופיות */
+/* פס טיבב – בהשראת השוליים הארוגים של הנטלה והשמלה האתיופית */
 .weave {
-  height: 10px;
-  background:
-    repeating-linear-gradient(
-      45deg,
-      var(--terracotta) 0 6px,
-      var(--gold) 6px 12px,
-      var(--green) 12px 18px,
-      var(--cream) 18px 24px
-    );
-  opacity: 0.9;
+  height: 18px;
+  background: var(--tibeb) repeat-x center / auto 18px;
+}
+.weave--thin {
+  height: 12px;
+  background-size: auto 12px;
+}
+
+/* אייקונים עגולים (נוצרו ב-Canva ובאותו סגנון) */
+.badge {
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 14px;
+  border-radius: 50%;
+  box-shadow: 0 6px 14px rgb(157 68 24 / 0.25);
+}
+.badge--sm {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 0;
 }
 
 /* ===== כפתורים ===== */
@@ -173,6 +213,23 @@ p {
   opacity: 0.55;
   pointer-events: none;
 }
+.btn--lg {
+  min-height: 54px;
+  padding: 0.7em 1.8em;
+  font-size: 1.08rem;
+}
+.btn--primary {
+  box-shadow: 0 8px 20px rgb(164 69 44 / 0.28);
+}
+.btn--gold {
+  background: #f0c86a;
+  color: var(--night);
+  box-shadow: 0 8px 20px rgb(0 0 0 / 0.18);
+}
+.btn--gold:hover {
+  background: #f6d88e;
+  color: var(--night);
+}
 .btn-row {
   display: flex;
   flex-wrap: wrap;
@@ -190,6 +247,14 @@ p {
   }
   .grid--3 {
     grid-template-columns: repeat(3, 1fr);
+  }
+  .grid--4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1000px) {
+  .grid--4 {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 .card {
@@ -212,8 +277,9 @@ a.card {
   transition: transform 0.15s, box-shadow 0.15s;
 }
 a.card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgb(91 58 41 / 0.14);
+  transform: translateY(-4px);
+  border-color: var(--gold);
+  box-shadow: 0 16px 36px rgb(91 58 41 / 0.15);
 }
 .card__more {
   color: var(--terracotta-dark);
@@ -243,13 +309,44 @@ a.card:hover {
 
 /* ===== כותרת עמוד ===== */
 .page-hero {
-  background: var(--earth);
+  position: relative;
   color: #fff;
-  padding-block: clamp(40px, 7vw, 72px);
+  padding-block: clamp(44px, 8vw, 84px) clamp(56px, 9vw, 96px);
+  background:
+    radial-gradient(ellipse at 85% 0%, rgb(201 150 43 / 0.28), transparent 55%),
+    radial-gradient(ellipse at 0% 100%, rgb(164 69 44 / 0.45), transparent 60%),
+    var(--night);
+  overflow: hidden;
+}
+.page-hero::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 18px;
+  background: var(--tibeb) repeat-x center / auto 18px;
+}
+.page-hero__inner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.page-hero__icon {
+  flex: none;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 6px rgb(255 255 255 / 0.08);
+}
+@media (min-width: 720px) {
+  .page-hero__icon {
+    width: 96px;
+    height: 96px;
+  }
 }
 .page-hero h1 {
   color: #fff;
-  margin-bottom: 0.3em;
+  margin-bottom: 0.25em;
 }
 .page-hero p {
   color: #f1e4d3;

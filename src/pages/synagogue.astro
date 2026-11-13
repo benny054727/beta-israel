@@ -12,6 +12,7 @@ const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(site.mapQuery
   <PageHero
     title="בית הכנסת"
     lead="בית תפילה, בית מסורת ובית לקהילה, בשכונת נווה יעקב בירושלים."
+    icon="synagogue.svg"
   />
 
   <section class="section">
@@ -36,7 +37,8 @@ const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(site.mapQuery
   <section class="section section--sand">
     <div class="container grid grid--2">
       <div class="card">
-        <h2 class="h3">🕯️ זמני תפילות</h2>
+        <img class="badge" src={url('/icons/synagogue.svg')} alt="" width="64" height="64" loading="lazy" />
+        <h2 class="h3">זמני תפילות</h2>
         {
           site.prayerTimes.length > 0 ? (
             <table class="times">
@@ -56,7 +58,8 @@ const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(site.mapQuery
       </div>
 
       <div class="card">
-        <h2 class="h3">📍 איך מגיעים</h2>
+        <img class="badge" src={url('/icons/tours.png')} alt="" width="64" height="64" loading="lazy" />
+        <h2 class="h3">איך מגיעים</h2>
         <p><strong>{site.address}</strong></p>
         <p>
           <a

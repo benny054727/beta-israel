@@ -1,0 +1,156 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ComingSoon from '../../components/ComingSoon.astro';
+import { site, url } from '../../config';
+import { lurl } from '../../i18n';
+const L = (p: string) => lurl('am', p);
+
+const a = site.association;
+const ready = Boolean(site.donationUrl);
+
+const causes = [
+  { icon: 'events.png', title: 'ዝግጅቶች', text: 'ዓመቱን ሙሉ በምኩራቡ የሚካሄዱ በዓላት፣ የባህል ምሽቶች፣ ንግግሮችና ስብሰባዎች።' },
+  { icon: 'community.png', title: 'የማኅበረሰብ እንቅስቃሴዎች', text: 'ለልጆች፣ ለወጣቶችና ለአረጋውያን የሚሆኑ እንቅስቃሴዎች፤ ትውልዶችን በወጋችን ዙሪያ ያገናኛሉ።' },
+  { icon: 'artists.svg', title: 'የአርቲስቶች ፕሮጀክት', text: 'ለማኅበረሰቡ ወጣት ሠዓሊዎችና አርቲስቶች ኤግዚቢሽኖች፣ የሥልጠና መድረኮችና የሥዕል ቁሳቁሶች።' },
+];
+
+const amounts = [
+  { sum: 50, text: 'ለጥናት ምሽት መስተንግዶ' },
+  { sum: 180, text: 'ለአርቲስቶች ሥልጠና የቀለምና የሥዕል ቁሳቁሶች' },
+  { sum: 360, text: 'ለማኅበረሰቡ ልጆች አንድ እንቅስቃሴ' },
+  { sum: 1000, text: 'የማኅበረሰብ ዝግጅትን መደገፍ' },
+];
+---
+
+<Base title="ልገሳ" description="በኔቬ ያዕቆብ የሚገኘውን የቤተ እስራኤል ምኩራብ እንቅስቃሴዎች ይደግፉ፦ ዝግጅቶች፣ የማኅበረሰብ እንቅስቃሴዎችና የአርቲስቶች ፕሮጀክት።">
+  <PageHero title="ምኩራቡን ይደግፉ" lead="ልገሳዎ እንቅስቃሴዎቻችንን ይሸፍናል፦ ዝግጅቶች፣ የማኅበረሰብ እንቅስቃሴዎችና የአርቲስቶች ፕሮጀክት።" icon="donate.png" />
+
+  <section class="section">
+    <div class="container">
+      <div class="prose">
+        <p class="big">
+          ምኩራቡ የጸሎት ቦታ ብቻ አይደለም። ለማኅበረሰቡ፣ ለወጋችንና ለሚቀጥለው ትውልድ ቤት ነው። ዓመቱን ሙሉ ዝግጅቶችን፣
+          እንቅስቃሴዎችንና ፕሮጀክቶችን ለማካሄድ የእርስዎ እርዳታ ያስፈልገናል። <strong>እያንዳንዱ ልገሳ በቀጥታ ለእንቅስቃሴዎቹ ይውላል።</strong>
+        </p>
+      </div>
+
+      <h2>ልገሳዎ ወዴት ይሄዳል?</h2>
+      <div class="grid grid--3">
+        {
+          causes.map((c) => (
+            <div class="card">
+              <img class="badge" src={url(`/icons/${c.icon}`)} alt="" width="64" height="64" loading="lazy" />
+              <h3>{c.title}</h3>
+              <p>{c.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sand" id="give">
+    <div class="container">
+      <h2>ልገሳዎ ምን ያስችላል</h2>
+      <ul class="amounts">
+        {
+          amounts.map((x) => (
+            <li>
+              <strong>₪{x.sum.toLocaleString('en-US')}</strong>
+              <span>{x.text}</span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="give-box card">
+        {
+          ready ? (
+            <>
+              <h3>ደህንነቱ በተጠበቀ መንገድ ይለግሱ</h3>
+              <p>የአንድ ጊዜ ወይም ወርሃዊ ልገሳ ማድረግ ይችላሉ። ክፍያው ደህንነቱ በተጠበቀ የክፍያ ድረ-ገጽ ላይ ይፈጸማል፤ ደረሰኙም በኢሜይል ይላካል።</p>
+              <div class="btn-row">
+                <a class="btn btn--primary" href={site.donationUrl} target="_blank" rel="noopener">በክሬዲት ካርድ ይለግሱ</a>
+                {site.paypalUrl && (
+                  <a class="btn btn--outline" href={site.paypalUrl} target="_blank" rel="noopener">በPayPal ይለግሱ</a>
+                )}
+              </div>
+            </>
+          ) : (
+            <ComingSoon title="ደህንነቱ የተጠበቀው የልገሳ ገጽ በቅርቡ ይዘጋጃል">
+              <p>
+                የልገሳ ሥርዓቱን በማዘጋጀት ላይ ነን። እስከዚያው መለገስ ከፈለጉ እባክዎ <a href={L('/contact')}>ያግኙን</a>።
+              </p>
+            </ComingSoon>
+          )
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid grid--2">
+      <div class="card">
+        <img class="badge" src={url('/icons/community.png')} alt="" width="64" height="64" loading="lazy" />
+        <h2 class="h3">ልገሳዎን የሚቀበለው ማን ነው?</h2>
+        <p>
+          ልገሳዎቹን የሚቀበለውና የሚያስተዳድረው <strong>{a.nameAm}</strong> ነው{a.registrationNumber && <> (በእስራኤል የተመዘገበ ለትርፍ ያልተቋቋመ ድርጅት፣ የምዝገባ ቁ. {a.registrationNumber})</>}።
+        </p>
+        {a.hasSection46 && <p>✅ በእስራኤል ግብር ለሚከፍሉ ለጋሾች ልገሳው በገቢ ግብር ሕግ <strong>አንቀጽ 46</strong> መሠረት ከግብር ተቀናሽ ነው።</p>}
+        <a href={L('/about')}>ስለ {a.nameAm} ተጨማሪ →</a>
+      </div>
+      <div class="card">
+        <img class="badge" src={url('/icons/synagogue.svg')} alt="" width="64" height="64" loading="lazy" />
+        <h2 class="h3">ደህንነትና ግልጽነት</h2>
+        <p>ክፍያው በውጭ፣ ደህንነቱ በተጠበቀ የክፍያ ድረ-ገጽ ይፈጸማል። የእኛ ድረ-ገጽ የካርድዎን መረጃ አያይም፣ አያስቀምጥምም።</p>
+        <p>በየሩብ ዓመቱ ልገሳዎ ምን እንዳስቻለ እዚህ እንለጥፋለን፦ በእርስዎ ድጋፍ የተካሄዱ ዝግጅቶችንና እንቅስቃሴዎችን።</p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .big {
+    font-size: 1.2rem;
+    margin-bottom: 2em;
+  }
+  .icon {
+    display: block;
+    font-size: 2rem;
+    margin-bottom: 8px;
+  }
+  .h3 {
+    font-size: 1.3rem;
+  }
+  .amounts {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 32px;
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (min-width: 900px) {
+    .amounts {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  .amounts li {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+  }
+  .amounts strong {
+    display: block;
+    font-size: 1.6rem;
+    color: var(--terracotta-dark);
+  }
+  .amounts span {
+    color: var(--ink-soft);
+  }
+  .give-box h3 {
+    font-size: 1.4rem;
+  }
+</style>

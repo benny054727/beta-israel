@@ -1,0 +1,58 @@
+---
+/** מעבר בין שפות – שלושה כפתורים קטנים, השפה הנוכחית מודגשת */
+import { languages, ui, lurl, pagePath, langFromPath } from '../i18n';
+
+const lang = langFromPath(Astro.url.pathname);
+const path = pagePath(Astro.url.pathname);
+---
+
+<ul class="langs" aria-label={ui[lang].langMenu}>
+  {
+    languages.map((l) => (
+      <li>
+        <a
+          href={lurl(l.code, path)}
+          hreflang={l.code}
+          lang={l.code}
+          title={l.label}
+          aria-current={l.code === lang ? 'true' : undefined}
+        >
+          {l.short}
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .langs {
+    list-style: none;
+    margin: 0;
+    padding: 2px;
+    display: inline-flex;
+    border: 1.5px solid var(--earth);
+    border-radius: 999px;
+    background: #fff;
+    flex: none;
+  }
+  .langs a {
+    display: grid;
+    place-items: center;
+    min-width: 34px;
+    min-height: 34px;
+    padding: 0 7px;
+    border-radius: 999px;
+    color: var(--earth);
+    font-weight: 700;
+    font-size: 0.85rem;
+    line-height: 1;
+    text-decoration: none;
+  }
+  .langs a:hover {
+    background: var(--sand);
+  }
+  .langs a[aria-current] {
+    background: var(--earth);
+    color: #fff;
+  }
+</style>

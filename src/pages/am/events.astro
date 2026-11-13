@@ -1,0 +1,63 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ComingSoon from '../../components/ComingSoon.astro';
+import { site, url } from '../../config';
+import { lurl } from '../../i18n';
+const L = (p: string) => lurl('am', p);
+
+const cal = site.googleCalendarId;
+const calSrc = cal
+  ? `https://calendar.google.com/calendar/embed?src=${encodeURIComponent(cal)}&ctz=Asia%2FJerusalem&hl=am&mode=AGENDA&showTitle=0&showPrint=0&showTabs=1&showCalendars=0`
+  : '';
+---
+
+<Base title="ዝግጅቶች" description="በኢየሩሳሌም ኔቬ ያዕቆብ በሚገኘው የቤተ እስራኤል ምኩራብ የሚካሄዱ ዝግጅቶች።">
+  <PageHero title="ዝግጅቶች" lead="በዓላት፣ የባህል ምሽቶች፣ ንግግሮችና የማኅበረሰብ እንቅስቃሴዎች። ሁሉም ተጋብዘዋል።" icon="events.png" />
+
+  <section class="section">
+    <div class="container">
+      {
+        calSrc ? (
+          <iframe class="embed" title="የምኩራቡ የዝግጅቶች ቀን መቁጠሪያ" src={calSrc} height="620" loading="lazy" />
+        ) : (
+          <ComingSoon title="የዝግጅቶች ቀን መቁጠሪያ በቅርቡ ይዘጋጃል">
+            <p>
+              የምኩራቡ ዝግጅቶች ሁሉ በቅርቡ እዚህ ይታያሉ። ስለሚመጡ ዝግጅቶች መስማት ይፈልጋሉ?{' '}
+              <a href={L('/contact')}>ያግኙን</a>።
+            </p>
+          </ComingSoon>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="container grid grid--3">
+      <div class="card">
+        <img class="badge" src={url('/icons/donate.png')} alt="" width="64" height="64" loading="lazy" />
+        <h2 class="h3">ተጨማሪ ዝግጅቶችን ማየት ይፈልጋሉ?</h2>
+        <p>የባህል ምሽቶች፣ የልጆች እንቅስቃሴዎችና የማኅበረሰብ በዓላት የሚካሄዱት በልገሳ ነው። እያንዳንዱ ልገሳ ሌላ ዝግጅት ይጨምራል።</p>
+        <a class="btn btn--primary" href={L('/donate')}>ዝግጅቶቻችንን ይደግፉ</a>
+      </div>
+      <div class="card">
+        <img class="badge" src={url('/icons/community.png')} alt="" width="64" height="64" loading="lazy" />
+        <h2 class="h3">በቡድን ይመጣሉ?</h2>
+        <p>ትምህርት ቤቶች፣ ድርጅቶችና ጎብኚዎች በምኩራቡ ነጻ የተመራ ጉብኝት ማዘጋጀት ይችላሉ።</p>
+        <a class="btn btn--outline" href={L('/tours')}>ጉብኝት ይያዙ</a>
+      </div>
+      <div class="card">
+        <img class="badge" src={url('/icons/celebrations.png')} alt="" width="64" height="64" loading="lazy" />
+        <h2 class="h3">በዓል እያቀዱ ነው?</h2>
+        <p>ባር ሚጽቫ፣ የሙሽራ ሰንበት፣ ሄና ወይም ማንኛውም የቤተሰብ ደስታ በምኩራቡ ሊከበር ይችላል።</p>
+        <a class="btn btn--outline" href={L('/celebrations')}>የደስታ በዓላት</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .h3 {
+    font-size: 1.3rem;
+  }
+</style>

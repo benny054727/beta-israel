@@ -1,0 +1,48 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ComingSoon from '../../components/ComingSoon.astro';
+import { site, url } from '../../config';
+import { lurl } from '../../i18n';
+const L = (p: string) => lurl('am', p);
+---
+
+<Base title="የተደራሽነት መግለጫ">
+  <PageHero title="የተደራሽነት መግለጫ" />
+  <section class="section">
+    <div class="container prose">
+      <p>
+        ይህ ድረ-ገጽ አካል ጉዳተኞችን ጨምሮ ለሁሉም ሰው ተደራሽ እንዲሆን እንፈልጋለን። ድረ-ገጹ የተገነባው በWCAG 2.0 መመሪያዎች
+        (ደረጃ AA) ላይ የተመሠረተውን የእስራኤል ደረጃ 5568 እንዲያሟላ ነው።
+      </p>
+      <h2>ያደረግነው</h2>
+      <ul>
+        <li>በቁልፍ ሰሌዳ ብቻ ሙሉ በሙሉ መንቀሳቀስ፣ እና "ወደ ዋናው ይዘት ይለፉ" ማገናኛ</li>
+        <li>ግልጽ የርዕስ አወቃቀርና ምልክት የተደረገባቸው የገጽ ክፍሎች</li>
+        <li>በጽሑፍና በጀርባ መካከል በቂ የቀለም ንፅፅር</li>
+        <li>ለምስሎች አማራጭ ጽሑፍ</li>
+        <li>ለስልኮች፣ ለታብሌቶችና ለአሳሽ የጽሑፍ ማጉላት ድጋፍ</li>
+        <li>የኮምፒውተሩን "እንቅስቃሴ ቀንስ" ቅንብር ማክበር</li>
+      </ul>
+      <h2>የውጭ አካላት</h2>
+      <p>
+        እንደ ዝግጅቶች ቀን መቁጠሪያ፣ ቅጾች፣ ካርታና የልገሳ ሥርዓት ያሉ አንዳንድ ክፍሎች ከውጭ አገልግሎቶች (Google እና የክፍያ አቅራቢው)
+        የሚመጡ ናቸው፤ ተደራሽነታቸውም የእነዚያ አቅራቢዎች ኃላፊነት ነው።
+      </p>
+      <h2>ችግር አገኙ?</h2>
+      <p>
+        በድረ-ገጹ ላይ ተደራሽ ያልሆነ ነገር ካገኙ፣ እባክዎ በ<a href={L('/contact')}>"ያግኙን" ገጽ</a>{site.email && <> ወይም በኢሜይል <a href={`mailto:${site.email}`}>{site.email}</a></>}
+        ያሳውቁን፤ በተቻለ ፍጥነት እናስተካክለዋለን።
+      </p>
+      <h2>በምኩራቡ ያለ ተደራሽነት</h2>
+      <p>በምኩራቡ ስላለው አካላዊ ተደራሽነት (የዊልቸር መግቢያ፣ የመኪና ማቆሚያ) መረጃ በቅርቡ ይጨመራል።</p>
+      <p class="muted">ለመጨረሻ ጊዜ የተሻሻለው፦ ኅዳር 2026</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .muted {
+    color: var(--ink-soft);
+  }
+</style>

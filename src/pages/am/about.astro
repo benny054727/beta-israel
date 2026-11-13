@@ -1,0 +1,39 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ComingSoon from '../../components/ComingSoon.astro';
+import { site, url } from '../../config';
+import { lurl } from '../../i18n';
+const L = (p: string) => lurl('am', p);
+
+const a = site.association;
+---
+
+<Base title={a.nameAm} description={`${a.nameAm} በኢየሩሳሌም ኔቬ ያዕቆብ ለሚገኘው የቤተ እስራኤል ምኩራብ እንቅስቃሴዎች ልገሳ ይቀበላል።`}>
+  <PageHero title={a.nameAm} lead="የምኩራቡን እንቅስቃሴዎችና የማኅበረሰቡን ሕይወት ለማሳደግ አጋሮቻችን።" icon="community.png" />
+
+  <section class="section">
+    <div class="container prose">
+      <h2>እኛ ማን ነን</h2>
+      <p>
+        <strong>{a.nameAm}</strong> በኔቬ ያዕቆብ ለሚገኘው የቤተ እስራኤል ምኩራብ እንቅስቃሴዎች የሚደረጉ ልገሳዎችን ይቀበላል፣
+        ያስተዳድራልም። በእነዚህ ልገሳዎች ማኅበሩ ዝግጅቶችን፣ የማኅበረሰብ እንቅስቃሴዎችንና የአርቲስቶች ፕሮጀክቶችን ይሸፍናል።
+      </p>
+
+      <h2>ኦፊሴላዊ መረጃ</h2>
+      <ul>
+        <li>ስም፦ {a.nameAm} ({a.name})</li>
+        <li>የምዝገባ ቁጥር፦ {a.registrationNumber || 'በቅርቡ'}</li>
+        <li>የአንቀጽ 46 የግብር ሁኔታ፦ {a.hasSection46 ? 'ጸድቋል' : 'በቅርቡ'}</li>
+      </ul>
+
+      <h2>ግልጽነት</h2>
+      <p>በየሩብ ዓመቱ ምን ያህል እንደተሰበሰበና ምን እንደተሸፈነ እንለጥፋለን፦ በለጋሾቻችን ድጋፍ የተካሄዱ ዝግጅቶችንና እንቅስቃሴዎችን።</p>
+
+      <div class="btn-row" style="margin-top:32px">
+        <a class="btn btn--primary" href={L('/donate')}>ይለግሱ</a>
+        <a class="btn btn--outline" href={L('/contact')}>ያግኙን</a>
+      </div>
+    </div>
+  </section>
+</Base>

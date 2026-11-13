@@ -1,0 +1,65 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ComingSoon from '../../components/ComingSoon.astro';
+import { site, url } from '../../config';
+import { lurl } from '../../i18n';
+const L = (p: string) => lurl('en', p);
+
+const form = site.contactFormUrl;
+const formSrc = form ? form + (form.includes('?') ? '&' : '?') + 'embedded=true' : '';
+const hasDirect = site.phone || site.email || site.whatsapp;
+const s = site.social;
+---
+
+<Base title="Contact" description="Get in touch with the Beta Israel synagogue in Neve Yaakov, Jerusalem.">
+  <PageHero title="Contact Us" lead="Questions, tour bookings, partnership ideas or a correction to our content? We'd love to hear from you." icon="synagogue.svg" />
+
+  <section class="section">
+    <div class="container grid grid--2">
+      <div class="card">
+        <h2 class="h3">Ways to reach us</h2>
+        <ul class="contact">
+          <li>📍 {site.addressEn}</li>
+          {site.phone && <li>📞 <a href={`tel:${site.phone}`}>{site.phone}</a></li>}
+          {site.email && <li>✉️ <a href={`mailto:${site.email}`}>{site.email}</a></li>}
+          {site.whatsapp && (
+            <li>💬 <a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener">WhatsApp</a></li>
+          )}
+          {s.facebook && <li><a href={s.facebook} target="_blank" rel="noopener">Facebook</a></li>}
+          {s.instagram && <li><a href={s.instagram} target="_blank" rel="noopener">Instagram</a></li>}
+          {s.youtube && <li><a href={s.youtube} target="_blank" rel="noopener">YouTube</a></li>}
+        </ul>
+        {!hasDirect && <p class="muted">Phone, email and WhatsApp details coming soon.</p>}
+      </div>
+
+      <div>
+        {
+          formSrc ? (
+            <iframe class="embed" title="Contact form" src={formSrc} height="900" loading="lazy" />
+          ) : (
+            <ComingSoon title="Our contact form is coming soon" />
+          )
+        }
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .h3 {
+    font-size: 1.3rem;
+  }
+  .contact {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1em;
+    font-size: 1.1rem;
+  }
+  .contact li {
+    margin-bottom: 0.5em;
+  }
+  .muted {
+    color: var(--ink-soft);
+  }
+</style>

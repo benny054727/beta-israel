@@ -3,12 +3,17 @@ import Base from '../layouts/Base.astro';
 import { url } from '../config';
 ---
 
-<Base title="העמוד לא נמצא">
+<Base title="העמוד לא נמצא · Page not found">
   <section class="section">
     <div class="container" style="text-align:center">
       <h1>העמוד לא נמצא</h1>
       <p>ייתכן שהקישור שגוי או שהעמוד הועבר.</p>
       <a class="btn btn--primary" href={url('/')}>חזרה לדף הבית</a>
+      <div lang="en" dir="ltr" style="margin-top:40px">
+        <h2>Page not found</h2>
+        <p>The link may be wrong, or the page may have moved.</p>
+        <a class="btn btn--outline" href={url('/en/')}>Back to the English home page</a>
+      </div>
     </div>
   </section>
 </Base>

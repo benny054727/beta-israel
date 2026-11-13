@@ -1,0 +1,40 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ComingSoon from '../../components/ComingSoon.astro';
+import { site, url } from '../../config';
+import { lurl } from '../../i18n';
+const L = (p: string) => lurl('en', p);
+
+const a = site.association;
+---
+
+<Base title={a.nameEn} description={`The ${a.nameEn} receives donations for the activities of the Beta Israel synagogue in Neve Yaakov, Jerusalem.`}>
+  <PageHero title={a.nameEn} lead="Our partners in growing the synagogue's activities and community life." icon="community.png" />
+
+  <section class="section">
+    <div class="container prose">
+      <h2>Who we are</h2>
+      <p>
+        The <strong>{a.nameEn}</strong> receives and manages donations for the activities of the Beta Israel
+        synagogue in Neve Yaakov. With these donations, the association funds events, community programs and
+        projects for artists.
+      </p>
+
+      <h2>Official details</h2>
+      <ul>
+        <li>Name: {a.nameEn} ({a.name})</li>
+        <li>Registration number: {a.registrationNumber || 'coming soon'}</li>
+        <li>Section 46 tax status: {a.hasSection46 ? 'approved' : 'coming soon'}</li>
+      </ul>
+
+      <h2>Transparency</h2>
+      <p>Every quarter we will publish how much was raised and what it funded: which events and activities took place thanks to our donors.</p>
+
+      <div class="btn-row" style="margin-top:32px">
+        <a class="btn btn--primary" href={L('/donate')}>Donate</a>
+        <a class="btn btn--outline" href={L('/contact')}>Contact us</a>
+      </div>
+    </div>
+  </section>
+</Base>

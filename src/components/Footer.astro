@@ -1,5 +1,8 @@
 ---
-import { nav, site, url } from '../config';
+import { site } from '../config';
+import { ui, lurl, langFromPath } from '../i18n';
+const lang = langFromPath(Astro.url.pathname);
+const t = ui[lang];
 const year = new Date().getFullYear();
 const a = site.association;
 ---
@@ -8,35 +11,36 @@ const a = site.association;
   <div class="weave" aria-hidden="true"></div>
   <div class="container footer__grid">
     <div>
-      <p class="footer__title">{site.name}</p>
-      <p>{site.tagline}</p>
-      <p>📍 {site.address}</p>
-      {site.phone && <p>📞 <a href={`tel:${site.phone}`}>{site.phone}</a></p>}
+      <p class="footer__title">{t.siteName}</p>
+      <p>{t.tagline}</p>
+      <p>📍 {t.address}</p>
+      {site.phone && <p>📞 <a href={`tel:${site.phone}`} dir="ltr">{site.phone}</a></p>}
       {site.email && <p>✉️ <a href={`mailto:${site.email}`}>{site.email}</a></p>}
     </div>
 
-    <nav aria-label="ניווט בתחתית העמוד">
-      <p class="footer__title">באתר</p>
+    <nav aria-label={t.footerNav}>
+      <p class="footer__title">{t.onSite}</p>
       <ul>
-        {nav.map((i) => <li><a href={url(i.href)}>{i.label}</a></li>)}
-        <li><a href={url('/donate')}>תרומה</a></li>
+        {t.nav.map((i) => <li><a href={lurl(lang, i.href)}>{i.label}</a></li>)}
+        <li><a href={lurl(lang, '/donate')}>{t.donate}</a></li>
       </ul>
     </nav>
 
     <div>
-      <p class="footer__title">{a.name}</p>
+      <p class="footer__title">{t.association}</p>
       <p>
-        התרומות דרך האתר מתקבלות ע"י {a.name}{a.registrationNumber && <> (ע"ר {a.registrationNumber})</>}.
+        {t.donationsBy} {t.association}{a.registrationNumber && <> ({t.regNo} {a.registrationNumber})</>}.
       </p>
-      <a class="btn btn--light" href={url('/donate')}>לתרומה</a>
+      <a class="btn btn--light" href={lurl(lang, '/donate')}>{t.toDonate}</a>
     </div>
   </div>
 
   <div class="container footer__bottom">
-    <p>© {year} {site.name}</p>
+    <p>© {year} {t.siteName}</p>
     <ul>
-      <li><a href={url('/accessibility')}>הצהרת נגישות</a></li>
-      <li><a href={url('/privacy')}>מדיניות פרטיות</a></li>
+      <li><a href={lurl(lang, '/accessibility')}>{t.accessibility}</a></li>
+      <li><a href={lurl(lang, '/privacy')}>{t.privacy}</a></li>
+      <li><a href={lurl(lang === 'he' ? 'en' : 'he', '/')} lang={lang === 'he' ? 'en' : 'he'}>{t.switchLabel}</a></li>
     </ul>
   </div>
 </footer>

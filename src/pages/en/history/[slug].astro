@@ -1,0 +1,68 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import { getCollection, render } from 'astro:content';
+import { lurl } from '../../../i18n';
+
+export async function getStaticPaths() {
+  const articles = (await getCollection('historyEn')).sort((a, b) => a.data.order - b.data.order);
+  return articles.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: { entry, next: articles[i + 1] ?? null },
+  }));
+}
+
+const { entry, next } = Astro.props;
+const { Content } = await render(entry);
+const L = (p: string) => lurl('en', p);
+---
+
+<Base title={entry.data.title} description={entry.data.description}>
+  <PageHero title={entry.data.title} lead={entry.data.description} icon={entry.data.icon} />
+  <section class="section">
+    <div class="container">
+      <article class="prose">
+        {
+          !entry.data.reviewed && (
+            <div class="notice" style="margin-bottom:28px">
+              <p>
+                Draft: this text is awaiting review and approval by the Kessim and community elders. Have a
+                correction or something to add? <a href={L('/contact')}>We'd love to hear from you</a>.
+              </p>
+            </div>
+          )
+        }
+
+        <Content />
+
+        {
+          entry.data.sources.length > 0 && (
+            <>
+              <h2>Sources</h2>
+              <ul>
+                {entry.data.sources.map((s) => (
+                  <li>{s}</li>
+                ))}
+              </ul>
+            </>
+          )
+        }
+
+        <hr />
+        <div class="btn-row">
+          <a class="btn btn--outline" href={L('/history')}>← All articles</a>
+          {next && <a class="btn btn--outline" href={L(`/history/${next.id}`)}>Next: {next.data.title} →</a>}
+          <a class="btn btn--primary" href={L('/tours')}>Visit the synagogue</a>
+        </div>
+      </article>
+    </div>
+  </section>
+</Base>
+
+<style>
+  hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 40px 0 24px;
+  }
+</style>

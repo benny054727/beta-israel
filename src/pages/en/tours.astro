@@ -1,0 +1,93 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ComingSoon from '../../components/ComingSoon.astro';
+import { site, url } from '../../config';
+import { lurl } from '../../i18n';
+const L = (p: string) => lurl('en', p);
+
+const form = site.tourFormUrl;
+const formSrc = form ? form + (form.includes('?') ? '&' : '?') + 'embedded=true' : '';
+const wa = site.whatsapp
+  ? `https://wa.me/${site.whatsapp}?text=${encodeURIComponent("Hello, I'd like to book a tour of the synagogue")}`
+  : '';
+---
+
+<Base title="Tours" description="Free tours of the Beta Israel synagogue in Neve Yaakov, Jerusalem, in English, Hebrew or Amharic.">
+  <PageHero title="Visit the Synagogue" lead="Come and discover the traditions, history and culture of Ethiopian Jewry up close." icon="tours.png" />
+
+  <section class="section">
+    <div class="container grid grid--3">
+      <div class="card">
+        <img class="badge" src={url('/icons/orit.svg')} alt="" width="64" height="64" loading="lazy" />
+        <h2 class="h3">Three languages</h2>
+        <p>Tours are offered in <strong>English</strong>, <strong>Hebrew</strong> or <strong>Amharic</strong>.</p>
+      </div>
+      <div class="card">
+        <img class="badge" src={url('/icons/community.png')} alt="" width="64" height="64" loading="lazy" />
+        <h2 class="h3">For every group</h2>
+        <p>Families, schools, youth groups, organizations, tourists and Jewish communities from abroad.</p>
+      </div>
+      <div class="card">
+        <img class="badge" src={url('/icons/donate.png')} alt="" width="64" height="64" loading="lazy" />
+        <h2 class="h3">Free of charge</h2>
+        <p>The tour is free. At the end, we welcome a donation to the synagogue's activities, as you are able.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="container">
+      <h2>What you'll see</h2>
+      <ul class="list">
+        <li>The synagogue and the Beta Israel prayer tradition</li>
+        <li>The community's story: from the villages of Ethiopia to Jerusalem</li>
+        <li>The Kessim, the Orit in Ge'ez, and the holidays, including Sigd</li>
+        <li>The community today, and its young artists</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="book">
+    <div class="container">
+      <h2>Book a tour</h2>
+      {
+        formSrc ? (
+          <iframe class="embed" title="Tour booking form" src={formSrc} height="1100" loading="lazy" />
+        ) : (
+          <ComingSoon title="The booking form is coming soon">
+            <p>
+              In the meantime, you can arrange a tour{' '}
+              {wa ? (
+                <a href={wa} target="_blank" rel="noopener">on WhatsApp</a>
+              ) : (
+                <a href={L('/contact')}>through our contact page</a>
+              )}
+              . Please include your preferred date, group size and language.
+            </p>
+          </ComingSoon>
+        )
+      }
+      <p class="after">
+        Enjoyed the tour? <a href={L('/donate')}>A small donation helps us hold more events and activities</a>.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .h3 {
+    font-size: 1.25rem;
+  }
+  .list {
+    padding-inline-start: 1.2em;
+    font-size: 1.1rem;
+  }
+  .list li {
+    margin-bottom: 0.4em;
+  }
+  .after {
+    margin-top: 24px;
+    font-size: 1.1rem;
+  }
+</style>

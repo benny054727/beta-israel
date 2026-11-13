@@ -1,0 +1,47 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ComingSoon from '../../components/ComingSoon.astro';
+import { site, url } from '../../config';
+import { lurl } from '../../i18n';
+const L = (p: string) => lurl('en', p);
+---
+
+<Base title="Privacy Policy">
+  <PageHero title="Privacy Policy" />
+  <section class="section">
+    <div class="container prose">
+      <p>We respect your privacy. This page explains what information this website collects and how it is used.</p>
+      <h2>Information you give us</h2>
+      <p>
+        When you fill in a tour booking or contact form, we receive the details you provide (such as your name,
+        phone number and email). We use them only to get back to you, arrange your tour or answer your message.
+        They will not be shared with others or used for marketing without your consent.
+      </p>
+      <h2>Donations</h2>
+      <p>
+        Donations are processed on an external, secure payment site. Our website never sees or stores credit
+        card details. Donation records are kept by the {site.association.nameEn} for issuing receipts and for
+        reporting as required by law.
+      </p>
+      <h2>External services</h2>
+      <p>
+        This site uses Google services (fonts, maps, calendar and forms) and an external payment provider. These
+        services have their own privacy policies.
+      </p>
+      <h2>Photos</h2>
+      <p>
+        Photos from events are published with the consent of the people shown, and with parental consent in the
+        case of children. Would you like a photo removed? <a href={L('/contact')}>Contact us</a> and we will
+        remove it.
+      </p>
+      <p class="muted">Last updated: November 2026</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .muted {
+    color: var(--ink-soft);
+  }
+</style>

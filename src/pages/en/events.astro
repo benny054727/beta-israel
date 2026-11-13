@@ -1,0 +1,57 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ComingSoon from '../../components/ComingSoon.astro';
+import { site, url } from '../../config';
+import { lurl } from '../../i18n';
+const L = (p: string) => lurl('en', p);
+
+const cal = site.googleCalendarId;
+const calSrc = cal
+  ? `https://calendar.google.com/calendar/embed?src=${encodeURIComponent(cal)}&ctz=Asia%2FJerusalem&hl=en&mode=AGENDA&showTitle=0&showPrint=0&showTabs=1&showCalendars=0`
+  : '';
+---
+
+<Base title="Events" description="Events at the Beta Israel synagogue in Neve Yaakov, Jerusalem.">
+  <PageHero title="Events" lead="Holidays, cultural evenings, talks and community activities. Everyone is welcome." icon="events.png" />
+
+  <section class="section">
+    <div class="container">
+      {
+        calSrc ? (
+          <iframe class="embed" title="Synagogue events calendar" src={calSrc} height="620" loading="lazy" />
+        ) : (
+          <ComingSoon title="The events calendar is coming soon">
+            <p>
+              All of the synagogue's events will appear here soon. Want to hear about upcoming events?{' '}
+              <a href={L('/contact')}>Get in touch</a>.
+            </p>
+          </ComingSoon>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="container grid grid--2">
+      <div class="card">
+        <img class="badge" src={url('/icons/donate.png')} alt="" width="64" height="64" loading="lazy" />
+        <h2 class="h3">Want to see more events?</h2>
+        <p>Cultural evenings, children's activities and community celebrations are made possible by donations. Every gift adds another event to the calendar.</p>
+        <a class="btn btn--primary" href={L('/donate')}>Support our events</a>
+      </div>
+      <div class="card">
+        <img class="badge" src={url('/icons/community.png')} alt="" width="64" height="64" loading="lazy" />
+        <h2 class="h3">Coming as a group?</h2>
+        <p>Schools, organizations and tourists can arrange a free guided tour of the synagogue.</p>
+        <a class="btn btn--outline" href={L('/tours')}>Book a tour</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .h3 {
+    font-size: 1.3rem;
+  }
+</style>

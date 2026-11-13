@@ -16,6 +16,7 @@ export const site = {
 
   // 📍 פרטי בית הכנסת
   address: 'שכונת נווה יעקב, ירושלים', // TODO: כתובת מדויקת (רחוב ומספר)
+  addressEn: 'Neve Yaakov, Jerusalem', // הכתובת באנגלית
   mapQuery: 'נווה יעקב, ירושלים', // מה שיחפשו במפה – לעדכן לכתובת המדויקת
 
   // 📞 יצירת קשר
@@ -26,6 +27,7 @@ export const site = {
   // 🤝 אגודת אנדנט – הגוף שמקבל את התרומות
   association: {
     name: 'אגודת אנדנט',
+    nameEn: 'Andenet Association',
     registrationNumber: '', // TODO: מספר עמותה (ע"ר)
     hasSection46: false, // לשנות ל-true רק אחרי שמוודאים שיש אישור סעיף 46 בתוקף
   },
@@ -44,9 +46,9 @@ export const site = {
 
   // 🕯️ זמני תפילות – אפשר להוסיף או למחוק שורות
   prayerTimes: [
-    // { label: 'שחרית שבת', time: '08:00' },
+    // { label: 'שחרית שבת', labelEn: 'Shabbat morning', time: '08:00' },
     // { label: 'מנחה וערבית', time: 'לפי שעת השקיעה' },
-  ] as { label: string; time: string }[],
+  ] as { label: string; labelEn?: string; time: string }[],
 
   // 🌐 רשתות חברתיות (אם אין – להשאיר ריק)
   social: {

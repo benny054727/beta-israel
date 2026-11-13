@@ -1,41 +1,48 @@
 ---
-import { nav, url } from '../config';
+import { url } from '../config';
+import { ui, lurl, pagePath, langFromPath } from '../i18n';
 
-const current = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ''), '') || '/';
+const lang = langFromPath(Astro.url.pathname);
+const other = lang === 'he' ? 'en' : 'he';
+const t = ui[lang];
+const current = pagePath(Astro.url.pathname);
 const isActive = (href: string) => current === href || current.startsWith(href + '/');
+const switchHref = lurl(other, current);
 ---
 
 <header class="header">
   <div class="weave weave--thin" aria-hidden="true"></div>
   <div class="container header__bar">
-    <a class="brand" href={url('/')}>
+    <a class="brand" href={lurl(lang, '/')}>
       <img src={url('/favicon.svg')} alt="" width="40" height="40" />
       <span>
-        <strong>ביתא ישראל</strong>
-        <small>נווה יעקב · ירושלים</small>
+        <strong>{t.brand}</strong>
+        <small>{t.brandSub}</small>
       </span>
     </a>
 
     <!-- מחשב: תפריט מלא בשורה העליונה -->
-    <nav class="nav" aria-label="ניווט ראשי">
+    <nav class="nav" aria-label={t.mainNav}>
       <ul>
         {
-          nav.map((item) => (
+          t.nav.map((item) => (
             <li>
-              <a href={url(item.href)} aria-current={isActive(item.href) ? 'page' : undefined}>
+              <a href={lurl(lang, item.href)} aria-current={isActive(item.href) ? 'page' : undefined}>
                 {item.label}
               </a>
             </li>
           ))
         }
       </ul>
-      <a class="btn btn--primary" href={url('/donate')}>תרומה</a>
+      <a class="lang-switch" href={switchHref} hreflang={other} lang={other} title={t.switchTitle}>{t.switchLabel}</a>
+      <a class="btn btn--primary" href={lurl(lang, '/donate')}>{t.donate}</a>
     </nav>
 
     <!-- טלפון: קישורים משניים קטנים למעלה -->
-    <ul class="header__mini" aria-label="קישורים נוספים">
-      <li><a href={url('/about')} aria-current={isActive('/about') ? 'page' : undefined}>אודות</a></li>
-      <li><a href={url('/contact')} aria-current={isActive('/contact') ? 'page' : undefined}>צור קשר</a></li>
+    <ul class="header__mini" aria-label={t.moreLinks}>
+      <li><a href={lurl(lang, '/about')} aria-current={isActive('/about') ? 'page' : undefined}>{t.about}</a></li>
+      <li><a href={lurl(lang, '/contact')} aria-current={isActive('/contact') ? 'page' : undefined}>{t.contact}</a></li>
+      <li><a class="lang-switch" href={switchHref} hreflang={other} lang={other} title={t.switchTitle}>{lang === 'he' ? 'EN' : 'עב'}</a></li>
     </ul>
   </div>
 </header>
@@ -69,6 +76,10 @@ const isActive = (href: string) => current === href || current.startsWith(href +
     font-size: 1.2rem;
     font-weight: 800;
   }
+  .brand strong,
+  .brand small {
+    white-space: nowrap;
+  }
   .brand small {
     display: block;
     color: var(--ink-soft);
@@ -89,6 +100,7 @@ const isActive = (href: string) => current === href || current.startsWith(href +
   }
   .nav a:not(.btn) {
     display: block;
+    white-space: nowrap;
     padding: 8px 12px;
     border-radius: 8px;
     text-decoration: none;
@@ -123,6 +135,28 @@ const isActive = (href: string) => current === href || current.startsWith(href +
   .header__mini a[aria-current='page'] {
     color: var(--terracotta-dark);
     background: var(--sand);
+  }
+
+  .lang-switch {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    min-width: 44px;
+    padding: 0 12px;
+    border: 1.5px solid var(--earth);
+    border-radius: 999px;
+    color: var(--earth) !important;
+    font-weight: 700 !important;
+    font-size: 0.9rem !important;
+    text-decoration: none;
+  }
+  .lang-switch:hover {
+    background: var(--earth) !important;
+    color: #fff !important;
+  }
+  .header__mini {
+    align-items: center;
   }
 
   @media (max-width: 999px) {

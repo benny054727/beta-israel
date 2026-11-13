@@ -1,0 +1,50 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import { getCollection } from 'astro:content';
+import { url } from '../../../config';
+import { lurl } from '../../../i18n';
+
+const articles = (await getCollection('historyEn')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Base title="History & Culture" description="The history, traditions and culture of Ethiopian Jewry – Beta Israel.">
+  <PageHero
+    title="History & Culture"
+    lead="Centuries of faith, tradition and longing for Jerusalem: the story of Beta Israel."
+    icon="orit.svg"
+  />
+  <section class="section">
+    <div class="container">
+      <div class="grid grid--2">
+        {
+          articles.map((a) => (
+            <a class="card" href={lurl('en', `/history/${a.id}`)}>
+              <img class="badge" src={url(`/icons/${a.data.icon}`)} alt="" width="64" height="64" loading="lazy" />
+              <h2 class="h3">{a.data.title}</h2>
+              <p>{a.data.description}</p>
+              <span class="card__more">Read more →</span>
+            </a>
+          ))
+        }
+      </div>
+      <div class="notice" style="margin-top:32px">
+        <p>
+          <strong>Coming soon:</strong> village life in Ethiopia, holidays and festivals, music and food,
+          traditional dress and crafts, and personal stories from community members.
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .h3 {
+    font-size: 1.3rem;
+  }
+  .icon {
+    display: block;
+    font-size: 2rem;
+    margin-bottom: 8px;
+  }
+</style>

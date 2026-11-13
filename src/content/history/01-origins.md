@@ -2,7 +2,7 @@
 title: מקורות ביתא ישראל
 description: מי הם ביתא ישראל, מאין באו, ואיך שמרו על יהדותם במשך מאות שנים באתיופיה.
 order: 1
-icon: 🏔️
+icon: origins.svg
 reviewed: false
 sources: []
 ---

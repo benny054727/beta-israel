@@ -12,7 +12,7 @@ const history = defineCollection({
     title: z.string(),
     description: z.string(),
     order: z.number(), // סדר ההופעה ברשימה
-    icon: z.string().optional(), // אמוג'י קטן לכרטיס
+    icon: z.string().default('origins.svg'), // שם קובץ אייקון מתוך public/icons
     reviewed: z.boolean().default(false), // true אחרי בדיקה של קייס / זקן קהילה
     sources: z.array(z.string()).default([]),
   }),

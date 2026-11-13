@@ -9,17 +9,17 @@ const ready = Boolean(site.donationUrl);
 
 const causes = [
   {
-    icon: '🎉',
+    icon: 'events.png',
     title: 'אירועים',
     text: 'עוד חגים, ערבי תרבות, הרצאות ומפגשים בבית הכנסת, מעבר למה שתקציב העירייה מאפשר.',
   },
   {
-    icon: '👨‍👩‍👧',
+    icon: 'community.png',
     title: 'פעילות לקהילה',
     text: 'פעילויות לילדים, לנוער ולוותיקים, וחיבור בין הדורות סביב המסורת.',
   },
   {
-    icon: '🎨',
+    icon: 'artists.svg',
     title: 'פרויקט האמנים',
     text: 'תערוכות, סדנאות וחומרי עבודה לציירים ולאמנים צעירים מהקהילה, ועידוד לקריירה באמנות.',
   },
@@ -37,6 +37,7 @@ const amounts = [
   <PageHero
     title="תרומה לבית הכנסת"
     lead="העירייה מממנת את הבסיס. התרומה שלכם מממנת את מה שמעבר."
+    icon="donate.png"
   />
 
   <section class="section">
@@ -53,7 +54,7 @@ const amounts = [
         {
           causes.map((c) => (
             <div class="card">
-              <span class="icon" aria-hidden="true">{c.icon}</span>
+              <img class="badge" src={url(`/icons/${c.icon}`)} alt="" width="64" height="64" loading="lazy" />
               <h3>{c.title}</h3>
               <p>{c.text}</p>
             </div>
@@ -109,7 +110,8 @@ const amounts = [
   <section class="section">
     <div class="container grid grid--2">
       <div class="card">
-        <h2 class="h3">🤝 מי מקבל את התרומה?</h2>
+        <img class="badge" src={url('/icons/community.png')} alt="" width="64" height="64" loading="lazy" />
+        <h2 class="h3">מי מקבל את התרומה?</h2>
         <p>
           התרומות מתקבלות ומנוהלות ע"י <strong>{a.name}</strong>{a.registrationNumber && <> (עמותה רשומה, ע"ר {a.registrationNumber})</>}.
         </p>
@@ -117,7 +119,8 @@ const amounts = [
         <a href={url('/about')}>עוד על {a.name} ←</a>
       </div>
       <div class="card">
-        <h2 class="h3">🔒 אבטחה ושקיפות</h2>
+        <img class="badge" src={url('/icons/synagogue.svg')} alt="" width="64" height="64" loading="lazy" />
+        <h2 class="h3">אבטחה ושקיפות</h2>
         <p>
           התשלום מתבצע באתר סליקה חיצוני ומאובטח. האתר שלנו לא רואה ולא שומר את פרטי האשראי שלכם.
         </p>
@@ -148,7 +151,12 @@ const amounts = [
     margin: 0 0 32px;
     display: grid;
     gap: 12px;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (min-width: 900px) {
+    .amounts {
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
   .amounts li {
     background: #fff;

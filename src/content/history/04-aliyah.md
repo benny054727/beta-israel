@@ -2,7 +2,7 @@
 title: הדרך לירושלים – העלייה
 description: מבצע משה, מבצע שלמה, והמסע הקשה של יהודי אתיופיה לארץ ישראל.
 order: 4
-icon: ✈️
+icon: aliyah.svg
 reviewed: false
 sources: []
 ---

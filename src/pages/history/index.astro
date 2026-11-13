@@ -11,6 +11,7 @@ const articles = (await getCollection('history')).sort((a, b) => a.data.order - 
   <PageHero
     title="היסטוריה ותרבות"
     lead="מאות שנים של אמונה, מסורת וגעגועים לירושלים: הסיפור של ביתא ישראל."
+    icon="orit.svg"
   />
   <section class="section">
     <div class="container">
@@ -18,7 +19,7 @@ const articles = (await getCollection('history')).sort((a, b) => a.data.order - 
         {
           articles.map((a) => (
             <a class="card" href={url(`/history/${a.id}`)}>
-              <span class="icon" aria-hidden="true">{a.data.icon}</span>
+              <img class="badge" src={url(`/icons/${a.data.icon}`)} alt="" width="64" height="64" loading="lazy" />
               <h2 class="h3">{a.data.title}</h2>
               <p>{a.data.description}</p>
               <span class="card__more">לקריאה ←</span>

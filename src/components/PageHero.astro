@@ -1,14 +1,21 @@
 ---
+import { url } from '../config';
+
 interface Props {
   title: string;
   lead?: string;
+  /** שם קובץ אייקון מתוך public/icons, למשל 'tours.png' */
+  icon?: string;
 }
-const { title, lead } = Astro.props;
+const { title, lead, icon } = Astro.props;
 ---
 
 <section class="page-hero">
-  <div class="container">
-    <h1>{title}</h1>
-    {lead && <p>{lead}</p>}
+  <div class="container page-hero__inner">
+    {icon && <img class="page-hero__icon" src={url(`/icons/${icon}`)} alt="" width="96" height="96" />}
+    <div>
+      <h1>{title}</h1>
+      {lead && <p>{lead}</p>}
+    </div>
   </div>
 </section>

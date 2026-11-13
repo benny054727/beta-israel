@@ -2,7 +2,7 @@
 title: חג הסיגד
 description: חג חידוש הברית והגעגועים לירושלים, שחל בכ"ט בחשוון, חמישים יום אחרי יום הכיפורים.
 order: 3
-icon: 🕊️
+icon: sigd.svg
 reviewed: false
 sources: []
 ---

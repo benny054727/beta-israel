@@ -14,6 +14,7 @@ const calSrc = cal
   <PageHero
     title="אירועים"
     lead="חגים, ערבי תרבות, הרצאות ופעילויות לקהילה. כולם מוזמנים."
+    icon="events.png"
   />
 
   <section class="section">
@@ -36,7 +37,8 @@ const calSrc = cal
   <section class="section section--sand">
     <div class="container grid grid--2">
       <div class="card">
-        <h2 class="h3">🤲 רוצים שיהיו עוד אירועים?</h2>
+        <img class="badge" src={url('/icons/donate.png')} alt="" width="64" height="64" loading="lazy" />
+        <h2 class="h3">רוצים שיהיו עוד אירועים?</h2>
         <p>
           העירייה מממנת את התפעול השוטף של בית הכנסת. אירועים נוספים, כמו ערבי תרבות, פעילויות
           לילדים וחגיגות קהילתיות, מתאפשרים בזכות תרומות.
@@ -44,7 +46,8 @@ const calSrc = cal
         <a class="btn btn--primary" href={url('/donate')}>לתרומה לאירועים</a>
       </div>
       <div class="card">
-        <h2 class="h3">🚶 מגיעים בקבוצה?</h2>
+        <img class="badge" src={url('/icons/community.png')} alt="" width="64" height="64" loading="lazy" />
+        <h2 class="h3">מגיעים בקבוצה?</h2>
         <p>בתי ספר, ארגונים ותיירים: אפשר לתאם סיור מודרך בבית הכנסת, חינם.</p>
         <a class="btn btn--outline" href={url('/tours')}>להזמנת סיור</a>
       </div>

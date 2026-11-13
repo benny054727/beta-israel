@@ -1,0 +1,451 @@
+---
+/** דף הבית – משותף לעברית ולאנגלית. הטקסטים לכל שפה נמצאים למטה ב-content. */
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { site, url } from '../config';
+import { lurl, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const L = (p: string) => lurl(lang, p);
+
+const articles = (await getCollection(lang === 'en' ? 'historyEn' : 'history'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 4);
+
+const content = {
+  he: {
+    eyebrow: 'ברוכים הבאים',
+    title1: 'ביתא ישראל',
+    title2: 'נווה יעקב, ירושלים',
+    lead: 'בית הכנסת של קהילת יהודי אתיופיה בירושלים. כאן שומרים על המסורת של ביתא ישראל, חוגגים את החגים יחד, ופותחים את הדלת לכל מי שרוצה להכיר את הסיפור של הקהילה.',
+    ctaTour: 'להזמנת סיור חינם',
+    ctaDonate: 'לתרומה',
+    heroAlt: "איור: חומות ירושלים העתיקה, סל מסוב וג'בנה, ופס אריגה אתיופי",
+    arrow: '←',
+    quick: [
+      { href: '/tours', icon: 'tours.png', title: 'סיור בבית הכנסת', text: 'סיור חינם בעברית, באנגלית או באמהרית', cta: 'להזמנה' },
+      { href: '/events', icon: 'events.png', title: 'אירועים', text: 'חגים, ערבי תרבות ופעילויות. כולם מוזמנים', cta: 'ללוח האירועים' },
+      { href: '/history', icon: 'origins.svg', title: 'היסטוריה ותרבות', text: 'הסיפור של ביתא ישראל, מאתיופיה לירושלים', cta: 'לקריאה' },
+      { href: '/donate', icon: 'donate.png', title: 'תרומה', text: 'עוד אירועים, פעילות לקהילה ופרויקט אמנים', cta: 'לתרומה' },
+    ],
+    histEyebrow: 'היסטוריה ותרבות',
+    histTitle: 'סיפור של אמונה וגעגועים לירושלים',
+    histIntro: 'במשך מאות שנים שמרו יהודי אתיופיה על התורה, על השבת ועל החלום לשוב לירושלים. היום החלום הזה חי בבית הכנסת בנווה יעקב.',
+    read: 'לקריאה',
+    donEyebrow: 'איך התרומה עובדת',
+    donTitle1: 'הפעילות של בית הכנסת',
+    donTitle2: 'מתקיימת בזכותכם.',
+    donText: 'האירועים, הפעילות לקהילה ופרויקט האמנים ממומנים מתרומות. כל תרומה עוזרת לנו לקיים עוד אירועים, להגיע לעוד משפחות ולקדם אמנים צעירים מהקהילה.',
+    donBy: 'התרומות מתקבלות ע"י',
+    association: site.association.name,
+    donCta: 'אני רוצה לתרום',
+    pillars: [
+      { icon: 'events.png', title: 'אירועים', text: 'חגים, ערבי תרבות והרצאות' },
+      { icon: 'community.png', title: 'פעילות לקהילה', text: 'לכל הגילאים, מהילדים ועד הוותיקים' },
+      { icon: 'artists.svg', title: 'פרויקט האמנים', text: 'תערוכות, סדנאות וליווי לציירים צעירים' },
+    ],
+  },
+  en: {
+    eyebrow: 'Welcome',
+    title1: 'Beta Israel',
+    title2: 'Neve Yaakov, Jerusalem',
+    lead: "The synagogue of Jerusalem's Ethiopian Jewish community. Here we keep the traditions of Beta Israel alive, celebrate the holidays together, and open our doors to everyone who wants to know our story.",
+    ctaTour: 'Book a free tour',
+    ctaDonate: 'Donate',
+    heroAlt: 'Illustration: the walls of Jerusalem’s Old City, a mesob basket and a jebena coffee pot, with an Ethiopian woven border',
+    arrow: '→',
+    quick: [
+      { href: '/tours', icon: 'tours.png', title: 'Visit the synagogue', text: 'Free guided tours in English, Hebrew or Amharic', cta: 'Book a tour' },
+      { href: '/events', icon: 'events.png', title: 'Events', text: 'Holidays, cultural evenings and activities. Everyone is welcome', cta: 'See events' },
+      { href: '/history', icon: 'origins.svg', title: 'History & Culture', text: 'The story of Beta Israel, from Ethiopia to Jerusalem', cta: 'Read more' },
+      { href: '/donate', icon: 'donate.png', title: 'Donate', text: 'More events, community activities and an artists’ project', cta: 'Give now' },
+    ],
+    histEyebrow: 'History & Culture',
+    histTitle: 'A story of faith and longing for Jerusalem',
+    histIntro: 'For centuries, the Jews of Ethiopia kept the Torah, the Sabbath and the dream of returning to Jerusalem. Today that dream lives on in our synagogue in Neve Yaakov.',
+    read: 'Read more',
+    donEyebrow: 'How your gift helps',
+    donTitle1: 'Our synagogue’s activities',
+    donTitle2: 'happen thanks to you.',
+    donText: 'Our events, community programs and artists’ project are funded by donations. Every gift helps us hold more events, reach more families and support young artists from the community.',
+    donBy: 'Donations are received by the',
+    association: site.association.nameEn,
+    donCta: 'I want to give',
+    pillars: [
+      { icon: 'events.png', title: 'Events', text: 'Holidays, cultural evenings and talks' },
+      { icon: 'community.png', title: 'Community programs', text: 'For all ages, from children to elders' },
+      { icon: 'artists.svg', title: 'Artists’ project', text: 'Exhibitions, workshops and mentoring for young painters' },
+    ],
+  },
+}[lang];
+---
+
+<Base>
+  <section class:list={['hero', { 'hero--art': site.heroImage, 'hero--ltr': lang === 'en' }]}>
+    <div class="container hero__grid">
+      <div class="hero__text">
+        <span class="hero__eyebrow">{content.eyebrow} · <span lang="am" dir="ltr">እንኳን ደህና መጣችሁ</span></span>
+        <h1>{content.title1}<br /><span class="hero__accent">{content.title2}</span></h1>
+        <p class="hero__lead">{content.lead}</p>
+        <div class="btn-row">
+          <a class="btn btn--primary btn--lg" href={L('/tours')}>{content.ctaTour}</a>
+          <a class="btn btn--outline btn--lg" href={L('/donate')}>{content.ctaDonate}</a>
+        </div>
+      </div>
+
+      {
+        !site.heroImage && (
+          <div class="hero__medallion" aria-hidden="true">
+            <div class="medallion">
+              <img src={url('/favicon.svg')} alt="" width="120" height="120" />
+            </div>
+            <img class="orbit orbit--1" src={url('/icons/tours.png')} alt="" width="76" height="76" />
+            <img class="orbit orbit--2" src={url('/icons/events.png')} alt="" width="76" height="76" />
+            <img class="orbit orbit--3" src={url('/icons/community.png')} alt="" width="76" height="76" />
+            <img class="orbit orbit--4" src={url('/icons/donate.png')} alt="" width="76" height="76" />
+          </div>
+        )
+      }
+    </div>
+
+    {
+      site.heroImage && (
+        <picture class="hero__art">
+          <source
+            type="image/webp"
+            media="(max-width: 1299px)"
+            srcset={`${url('/images/hero-crop-600.webp')} 600w, ${url('/images/hero-crop-1000.webp')} 1000w`}
+            sizes="100vw"
+          />
+          <source
+            type="image/webp"
+            srcset={`${url('/images/hero-800.webp')} 800w, ${url('/images/hero-1200.webp')} 1200w, ${url('/images/hero-2000.webp')} 2000w`}
+            sizes="100vw"
+          />
+          <img src={url('/images/hero-1200.jpg')} alt={content.heroAlt} width="1200" height="678" fetchpriority="high" />
+        </picture>
+      )
+    }
+  </section>
+  {!site.heroImage && <div class="weave" aria-hidden="true"></div>}
+
+  <section class="section quick-wrap">
+    <div class="container">
+      <ul class="quick">
+        {
+          content.quick.map((q) => (
+            <li>
+              <a class="quick__card" href={L(q.href)}>
+                <img class="badge" src={url(`/icons/${q.icon}`)} alt="" width="64" height="64" loading="lazy" />
+                <h2 class="quick__title">{q.title}</h2>
+                <p>{q.text}</p>
+                <span class="card__more">{q.cta} {content.arrow}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="container">
+      <span class="eyebrow">{content.histEyebrow}</span>
+      <h2>{content.histTitle}</h2>
+      <p class="section__intro">{content.histIntro}</p>
+      <div class="grid grid--4">
+        {
+          articles.map((a) => (
+            <a class="card story" href={L(`/history/${a.id}`)}>
+              <img class="badge" src={url(`/icons/${a.data.icon}`)} alt="" width="64" height="64" loading="lazy" />
+              <h3>{a.data.title}</h3>
+              <p>{a.data.description}</p>
+              <span class="card__more">{content.read} {content.arrow}</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--green">
+    <div class="container split">
+      <div>
+        <span class="eyebrow">{content.donEyebrow}</span>
+        <h2>{content.donTitle1}<br />{content.donTitle2}</h2>
+        <p>{content.donText}</p>
+        <p>{content.donBy} <strong>{content.association}</strong>.</p>
+        <a class="btn btn--gold btn--lg" href={L('/donate')}>{content.donCta}</a>
+      </div>
+      <ul class="pillars">
+        {
+          content.pillars.map((p) => (
+            <li>
+              <img class="badge badge--sm" src={url(`/icons/${p.icon}`)} alt="" width="48" height="48" loading="lazy" />
+              <div>
+                <strong>{p.title}</strong>
+                <span>{p.text}</span>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ===== פתיח ===== */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(40px, 7vw, 88px);
+    background:
+      radial-gradient(ellipse at 90% 10%, rgb(201 150 43 / 0.18), transparent 50%),
+      radial-gradient(ellipse at 5% 90%, rgb(164 69 44 / 0.12), transparent 55%),
+      var(--cream);
+  }
+  /* פתיח עם האיור מ-Canva: הטקסט יושב על השמיים הריקים שבאיור */
+  .hero--art {
+    padding: clamp(32px, 6vw, 56px) 0 0;
+    background: #f9f3e8; /* צבע השמיים באיור – כדי שהמעבר יהיה חלק */
+  }
+  .hero__art img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  /* באנגלית (משמאל לימין) האיור משתקף, כך שהשמיים הריקים עוברים לצד שמאל – מתחת לטקסט */
+  .hero--ltr .hero__art img {
+    transform: scaleX(-1);
+  }
+  .hero--art .hero__art {
+    display: block;
+    margin-top: 12px;
+  }
+  @media (min-width: 1300px) {
+    .hero--art {
+      padding: 0;
+    }
+    .hero--art .hero__grid {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      align-items: start;
+      padding-top: clamp(28px, 3.5vw, 64px);
+    }
+    .hero--art .hero__text {
+      max-width: 560px;
+    }
+    .hero--ltr .hero__text {
+      max-width: 600px;
+    }
+    .hero--ltr h1 {
+      font-size: 3.2rem;
+    }
+    .hero--art .hero__art {
+      margin-top: 0;
+    }
+  }
+  .hero__grid {
+    display: grid;
+    gap: 40px;
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .hero__grid {
+      grid-template-columns: 1.15fr 1fr;
+      gap: 56px;
+    }
+  }
+  .hero__eyebrow {
+    display: inline-block;
+    padding: 6px 14px;
+    margin-bottom: 18px;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid var(--border);
+    color: var(--terracotta-dark);
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+  .hero h1 {
+    margin-bottom: 0.35em;
+  }
+  .hero .btn--outline {
+    background: #fff;
+  }
+  .hero .btn--outline:hover {
+    background: var(--earth);
+  }
+  .hero__accent {
+    color: var(--terracotta);
+  }
+  .hero__lead {
+    font-size: clamp(1.1rem, 2.2vw, 1.25rem);
+    color: var(--ink-soft);
+    max-width: 560px;
+    margin-bottom: 1.6em;
+  }
+
+  /* מדליון עם אייקונים – מוצג כל עוד אין איור ראשי */
+  .hero__medallion {
+    position: relative;
+    width: min(100%, 400px);
+    aspect-ratio: 1;
+    margin-inline: auto;
+  }
+  .medallion {
+    position: absolute;
+    inset: 16%;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background:
+      radial-gradient(circle, var(--night) 0 58%, transparent 59%),
+      repeating-conic-gradient(from 0deg, var(--terracotta) 0 10deg, var(--gold) 10deg 20deg, var(--green) 20deg 30deg);
+    box-shadow:
+      0 0 0 10px #fff,
+      0 0 0 12px var(--border),
+      0 24px 60px rgb(91 58 41 / 0.25);
+  }
+  .medallion img {
+    width: 46%;
+    height: auto;
+  }
+  .orbit {
+    position: absolute;
+    width: 22%;
+    height: auto;
+    border-radius: 50%;
+    box-shadow: 0 10px 24px rgb(91 58 41 / 0.25);
+    animation: float 6s ease-in-out infinite;
+  }
+  .orbit--1 { top: 0; inset-inline-start: 6%; }
+  .orbit--2 { top: 4%; inset-inline-end: 4%; animation-delay: -1.5s; }
+  .orbit--3 { bottom: 4%; inset-inline-start: 2%; animation-delay: -3s; }
+  .orbit--4 { bottom: 0; inset-inline-end: 8%; animation-delay: -4.5s; }
+  @keyframes float {
+    50% { transform: translateY(-8px); }
+  }
+  @media (max-width: 899px) {
+    .hero__medallion {
+      width: min(80%, 320px);
+    }
+  }
+
+  /* ===== כרטיסי פעולה ===== */
+  .quick-wrap {
+    padding-top: clamp(32px, 6vw, 64px);
+  }
+  .quick {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (min-width: 900px) {
+    .quick {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+  }
+  .quick__card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 22px 18px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    color: inherit;
+    text-decoration: none;
+    transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+  }
+  .quick__card:hover {
+    transform: translateY(-4px);
+    border-color: var(--gold);
+    box-shadow: 0 16px 36px rgb(91 58 41 / 0.15);
+  }
+  .quick__title {
+    font-family: var(--font);
+    font-size: 1.15rem;
+    margin-bottom: 0.3em;
+  }
+  .quick__card p {
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+    line-height: 1.55;
+    flex: 1;
+  }
+  @media (max-width: 480px) {
+    .quick__card {
+      padding: 18px 14px;
+    }
+    .quick__card .badge {
+      width: 52px;
+      height: 52px;
+    }
+    .quick__card p {
+      font-size: 0.92rem;
+    }
+  }
+
+  /* ===== מאמרים ===== */
+  .story h3 {
+    font-size: 1.2rem;
+  }
+  .story p {
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  /* ===== תרומה ===== */
+  .split {
+    display: grid;
+    gap: 36px;
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .split {
+      grid-template-columns: 1.2fr 1fr;
+      gap: 64px;
+    }
+  }
+  .pillars {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 14px;
+  }
+  .pillars li {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: rgb(255 255 255 / 0.08);
+    border: 1px solid rgb(255 255 255 / 0.16);
+    border-radius: 16px;
+    padding: 16px 18px;
+  }
+  .pillars strong {
+    display: block;
+    color: #fff;
+    font-size: 1.1rem;
+  }
+  .pillars span {
+    color: #d6e3de;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .orbit {
+      animation: none;
+    }
+  }
+</style>

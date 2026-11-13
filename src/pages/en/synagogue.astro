@@ -1,0 +1,115 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ComingSoon from '../../components/ComingSoon.astro';
+import { site, url } from '../../config';
+import { lurl } from '../../i18n';
+const L = (p: string) => lurl('en', p);
+import PhotoPlaceholder from '../../components/PhotoPlaceholder.astro';
+
+const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(site.mapQuery)}&hl=en&output=embed`;
+---
+
+<Base title="The Synagogue" description="The Beta Israel synagogue in the Neve Yaakov neighborhood of Jerusalem.">
+  <PageHero
+    title="The Synagogue"
+    lead="A house of prayer, of tradition and of community, in the Neve Yaakov neighborhood of Jerusalem."
+    icon="synagogue.svg"
+  />
+
+  <section class="section">
+    <div class="container split">
+      <div class="prose">
+        <h2>About the synagogue</h2>
+        <p>
+          The Beta Israel synagogue in Neve Yaakov carries on the tradition of the <strong>Masgid</strong>, the
+          house of prayer of Ethiopian Jews. The community prays here according to its own tradition, celebrates
+          the holidays, including Sigd, and gathers here across all generations.
+        </p>
+        <p>
+          The synagogue is also open to the wider public: schools, groups, tourists and anyone who wants to learn
+          about the traditions of Ethiopian Jewry. <a href={L('/tours')}>You can book a free tour</a>.
+        </p>
+      </div>
+      <PhotoPlaceholder label="Photos of the synagogue coming soon" />
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="container grid grid--2">
+      <div class="card">
+        <img class="badge" src={url('/icons/synagogue.svg')} alt="" width="64" height="64" loading="lazy" />
+        <h2 class="h3">Prayer times</h2>
+        {
+          site.prayerTimes.length > 0 ? (
+            <table class="times">
+              <tbody>
+                {site.prayerTimes.map((t) => (
+                  <tr>
+                    <th scope="row">{t.labelEn ?? t.label}</th>
+                    <td>{t.time}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <p>Prayer times will be posted here soon. In the meantime, feel free to <a href={L('/contact')}>contact us</a>.</p>
+          )
+        }
+      </div>
+
+      <div class="card">
+        <img class="badge" src={url('/icons/tours.png')} alt="" width="64" height="64" loading="lazy" />
+        <h2 class="h3">Getting here</h2>
+        <p><strong>{site.addressEn}</strong></p>
+        <p>
+          <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.mapQuery)}`} target="_blank" rel="noopener">Open in Google Maps</a>
+          ·
+          <a href={`https://waze.com/ul?q=${encodeURIComponent(site.mapQuery)}`} target="_blank" rel="noopener">Navigate with Waze</a>
+        </p>
+        <p class="muted">Details on public transport, parking and accessibility coming soon.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Map</h2>
+      <iframe class="embed" title={`Map: ${site.addressEn}`} src={mapSrc} height="380" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .split {
+    display: grid;
+    gap: 32px;
+    align-items: center;
+  }
+  @media (min-width: 860px) {
+    .split {
+      grid-template-columns: 1.2fr 1fr;
+      gap: 56px;
+    }
+  }
+  .h3 {
+    font-size: 1.3rem;
+  }
+  .times {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .times th,
+  .times td {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    text-align: start;
+  }
+  .times td {
+    text-align: end;
+    font-weight: 700;
+  }
+  .muted {
+    color: var(--ink-soft);
+  }
+</style>

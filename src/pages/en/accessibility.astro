@@ -1,0 +1,49 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ComingSoon from '../../components/ComingSoon.astro';
+import { site, url } from '../../config';
+import { lurl } from '../../i18n';
+const L = (p: string) => lurl('en', p);
+---
+
+<Base title="Accessibility Statement">
+  <PageHero title="Accessibility Statement" />
+  <section class="section">
+    <div class="container prose">
+      <p>
+        We want this website to be usable by everyone, including people with disabilities. The site was built to
+        meet Israeli Standard 5568, which is based on the WCAG 2.0 guidelines at level AA.
+      </p>
+      <h2>What we have done</h2>
+      <ul>
+        <li>Full keyboard navigation, with a "Skip to main content" link</li>
+        <li>A clear heading structure and labeled page regions</li>
+        <li>Sufficient color contrast between text and background</li>
+        <li>Alternative text for images</li>
+        <li>Support for phones, tablets and browser text zoom</li>
+        <li>Respect for the operating system's "reduce motion" setting</li>
+      </ul>
+      <h2>External components</h2>
+      <p>
+        Some parts of the site, such as the events calendar, forms, map and donation system, are embedded from
+        external services (Google and the payment provider), and their accessibility is the responsibility of
+        those providers.
+      </p>
+      <h2>Found a problem?</h2>
+      <p>
+        If you find something on the site that is not accessible, please let us know through our
+        <a href={L('/contact')}>contact page</a>{site.email && <> or by email at <a href={`mailto:${site.email}`}>{site.email}</a></>}, and we will fix it as soon as possible.
+      </p>
+      <h2>Accessibility at the synagogue</h2>
+      <p>Details about physical accessibility at the synagogue (wheelchair access, parking) will be added soon.</p>
+      <p class="muted">Last updated: November 2026</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .muted {
+    color: var(--ink-soft);
+  }
+</style>

@@ -1,8 +1,10 @@
 ---
 /** סרגל ניווט קבוע בתחתית המסך – מוצג בטלפון ובטאבלט בלבד */
-import { url } from '../config';
+import { ui, lurl, pagePath, langFromPath } from '../i18n';
 
-const current = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ''), '') || '/';
+const lang = langFromPath(Astro.url.pathname);
+const t = ui[lang];
+const current = pagePath(Astro.url.pathname);
 const isActive = (href: string) =>
   href === '/' ? current === '/' : current === href || current.startsWith(href + '/');
 
@@ -17,22 +19,22 @@ const icons: Record<string, string> = {
 };
 
 const items = [
-  { href: '/', label: 'בית', icon: 'home' },
-  { href: '/synagogue', label: 'בית הכנסת', icon: 'synagogue' },
-  { href: '/history', label: 'היסטוריה', icon: 'history' },
-  { href: '/events', label: 'אירועים', icon: 'events' },
-  { href: '/tours', label: 'סיורים', icon: 'tours' },
-  { href: '/donate', label: 'תרומה', icon: 'donate', accent: true },
+  { href: '/', label: t.bottom.home, icon: 'home' },
+  { href: '/synagogue', label: t.bottom.synagogue, icon: 'synagogue' },
+  { href: '/history', label: t.bottom.history, icon: 'history' },
+  { href: '/events', label: t.bottom.events, icon: 'events' },
+  { href: '/tours', label: t.bottom.tours, icon: 'tours' },
+  { href: '/donate', label: t.bottom.donate, icon: 'donate', accent: true },
 ];
 ---
 
-<nav class="bottom-nav" aria-label="ניווט ראשי">
+<nav class="bottom-nav" aria-label={t.mainNav}>
   <ul>
     {
       items.map((i) => (
         <li>
           <a
-            href={url(i.href)}
+            href={lurl(lang, i.href)}
             class:list={[{ accent: i.accent }]}
             aria-current={isActive(i.href) ? 'page' : undefined}
           >

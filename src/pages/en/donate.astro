@@ -1,0 +1,158 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ComingSoon from '../../components/ComingSoon.astro';
+import { site, url } from '../../config';
+import { lurl } from '../../i18n';
+const L = (p: string) => lurl('en', p);
+
+const a = site.association;
+const ready = Boolean(site.donationUrl);
+
+const causes = [
+  { icon: 'events.png', title: 'Events', text: 'Holidays, cultural evenings, talks and gatherings at the synagogue, all year round.' },
+  { icon: 'community.png', title: 'Community programs', text: 'Activities for children, youth and elders, connecting the generations around our traditions.' },
+  { icon: 'artists.svg', title: 'Artists’ project', text: 'Exhibitions, workshops and art supplies for young painters and artists from the community, encouraging careers in art.' },
+];
+
+const amounts = [
+  { sum: 50, text: 'Refreshments for a study evening' },
+  { sum: 180, text: 'Paint and supplies for an artists’ workshop' },
+  { sum: 360, text: 'An activity for the community’s children' },
+  { sum: 1000, text: 'Sponsoring a community event' },
+];
+---
+
+<Base title="Donate" description="Support the activities of the Beta Israel synagogue in Neve Yaakov: events, community programs and the artists’ project.">
+  <PageHero title="Support the Synagogue" lead="Your gift funds our activities: events, community programs and the artists’ project." icon="donate.png" />
+
+  <section class="section">
+    <div class="container">
+      <div class="prose">
+        <p class="big">
+          The synagogue is more than a place of prayer. It is a home for the community, for our traditions and for
+          the next generation. To hold events, activities and projects throughout the year, we need your help.
+          <strong>Every donation goes directly to our activities.</strong>
+        </p>
+      </div>
+
+      <h2>Where your donation goes</h2>
+      <div class="grid grid--3">
+        {
+          causes.map((c) => (
+            <div class="card">
+              <img class="badge" src={url(`/icons/${c.icon}`)} alt="" width="64" height="64" loading="lazy" />
+              <h3>{c.title}</h3>
+              <p>{c.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sand" id="give">
+    <div class="container">
+      <h2>What your gift makes possible</h2>
+      <ul class="amounts">
+        {
+          amounts.map((x) => (
+            <li>
+              <strong>₪{x.sum.toLocaleString('en-US')}</strong>
+              <span>{x.text}</span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="give-box card">
+        {
+          ready ? (
+            <>
+              <h3>Give securely</h3>
+              <p>You can make a one-time gift or a monthly donation. Payment is handled on a secure payment site, and your receipt is sent by email.</p>
+              <div class="btn-row">
+                {site.paypalUrl && (
+                  <a class="btn btn--primary" href={site.paypalUrl} target="_blank" rel="noopener">Donate with PayPal</a>
+                )}
+                <a class="btn btn--outline" href={site.donationUrl} target="_blank" rel="noopener">Donate by credit card</a>
+              </div>
+            </>
+          ) : (
+            <ComingSoon title="Our secure donation page is coming soon">
+              <p>
+                We are finishing the setup of our donation system. In the meantime, if you would like to give,
+                please <a href={L('/contact')}>get in touch</a>.
+              </p>
+            </ComingSoon>
+          )
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid grid--2">
+      <div class="card">
+        <img class="badge" src={url('/icons/community.png')} alt="" width="64" height="64" loading="lazy" />
+        <h2 class="h3">Who receives your donation?</h2>
+        <p>
+          Donations are received and managed by the <strong>{a.nameEn}</strong>{a.registrationNumber && <> (a registered Israeli nonprofit, reg. no. {a.registrationNumber})</>}.
+        </p>
+        {a.hasSection46 && <p>✅ Donations by Israeli taxpayers are tax-deductible under <strong>Section 46</strong> of the Income Tax Ordinance.</p>}
+        <a href={L('/about')}>More about the {a.nameEn} →</a>
+      </div>
+      <div class="card">
+        <img class="badge" src={url('/icons/synagogue.svg')} alt="" width="64" height="64" loading="lazy" />
+        <h2 class="h3">Security and transparency</h2>
+        <p>Payment is made on an external, secure payment site. Our website never sees or stores your card details.</p>
+        <p>Every quarter we will publish here what your donations made possible: which events and activities took place thanks to you.</p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .big {
+    font-size: 1.2rem;
+    margin-bottom: 2em;
+  }
+  .icon {
+    display: block;
+    font-size: 2rem;
+    margin-bottom: 8px;
+  }
+  .h3 {
+    font-size: 1.3rem;
+  }
+  .amounts {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 32px;
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (min-width: 900px) {
+    .amounts {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  .amounts li {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+  }
+  .amounts strong {
+    display: block;
+    font-size: 1.6rem;
+    color: var(--terracotta-dark);
+  }
+  .amounts span {
+    color: var(--ink-soft);
+  }
+  .give-box h3 {
+    font-size: 1.4rem;
+  }
+</style>

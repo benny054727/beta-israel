@@ -43,6 +43,56 @@ export const site = {
   // 📝 טפסי Google – הקישור של הטופס (כפתור "שליחה" ← סמל הקישור)
   tourFormUrl: '', // טופס הזמנת סיור
   contactFormUrl: '', // טופס צור קשר
+  celebrationFormUrl: '', // טופס בקשה להזמנת שמחה / אירוע בבית הכנסת
+
+  // 🎉 שמחות ואירועים בתשלום בבית הכנסת
+  // ⚠️ המחירים כאן הם לדוגמה בלבד! לעדכן למחירים האמיתיים לפני שמפרסמים את האתר.
+  // כשהמחירים אמיתיים – לשנות את pricesAreExamples ל-false, וההודעה "מחירים לדוגמה" תיעלם.
+  celebrations: {
+    pricesAreExamples: true,
+    capacity: '', // כמה אורחים בית הכנסת יכול להכיל, לדוגמה: '120'
+    packages: [
+      {
+        icon: 'synagogue.svg',
+        title: 'בר מצווה / בת מצווה',
+        titleEn: 'Bar / Bat Mitzvah',
+        text: 'עלייה לתורה בבית הכנסת, וקידוש חגיגי במקום למשפחה ולאורחים.',
+        textEn: 'Being called up to the Torah at the synagogue, followed by a festive kiddush for family and guests.',
+        price: 1500,
+      },
+      {
+        icon: 'orit.svg',
+        title: 'שבת חתן',
+        titleEn: 'Shabbat Chatan',
+        text: 'עלייה לתורה לחתן בשבת שלפני החתונה, עם קידוש לקהל ולמשפחה.',
+        textEn: 'An aliyah for the groom on the Shabbat before the wedding, with a kiddush for the congregation and family.',
+        price: 1800,
+      },
+      {
+        icon: 'celebrations.png',
+        title: 'חינה',
+        titleEn: 'Henna',
+        text: 'ערב חינה מסורתי באולם בית הכנסת, עד 4 שעות.',
+        textEn: 'A traditional henna evening in the synagogue hall, up to 4 hours.',
+        price: 2500,
+      },
+      {
+        icon: 'community.png',
+        title: 'אירוע חגיגי אחר',
+        titleEn: 'Other celebrations',
+        text: 'ברית, אירוסין, יום הולדת, מסיבת אירוסין או כל שמחה משפחתית.',
+        textEn: 'A brit milah, engagement, birthday or any family simcha.',
+        price: 1200,
+        from: true, // "החל מ-"
+      },
+    ],
+    // תוספות אפשריות (לדוגמה)
+    extras: [
+      { title: 'מערכת הגברה', titleEn: 'Sound system', price: 400 },
+      { title: 'שולחנות, כיסאות ומפות', titleEn: 'Tables, chairs and tablecloths', price: 350 },
+      { title: 'ניקיון אחרי האירוע', titleEn: 'Cleaning after the event', price: 300 },
+    ],
+  },
 
   // 🕯️ זמני תפילות – אפשר להוסיף או למחוק שורות
   prayerTimes: [

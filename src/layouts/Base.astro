@@ -24,6 +24,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href={url('/favicon.svg')} />
     <meta name="theme-color" content="#5b3a29" />
+    <link rel="manifest" href={url('/manifest.webmanifest')} />
+    <link rel="apple-touch-icon" href={url('/apple-touch-icon.png')} />
+    <meta name="apple-mobile-web-app-title" content="ביתא ישראל" />
+    <meta name="mobile-web-app-capable" content="yes" />
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="he_IL" />

@@ -26,6 +26,8 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
+  /* שומר מקום קבוע לפס הגלילה, כדי שהעמוד לא יזוז הצידה בין דף קצר לדף ארוך */
+  scrollbar-gutter: stable;
 }
 
 body {

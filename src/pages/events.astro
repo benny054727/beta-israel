@@ -1,0 +1,59 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import ComingSoon from '../components/ComingSoon.astro';
+import { site, url } from '../config';
+
+const cal = site.googleCalendarId;
+const calSrc = cal
+  ? `https://calendar.google.com/calendar/embed?src=${encodeURIComponent(cal)}&ctz=Asia%2FJerusalem&hl=iw&mode=AGENDA&showTitle=0&showPrint=0&showTabs=1&showCalendars=0`
+  : '';
+---
+
+<Base title="אירועים" description="לוח האירועים של בית הכנסת של ביתא ישראל בנווה יעקב.">
+  <PageHero
+    title="אירועים"
+    lead="חגים, ערבי תרבות, הרצאות ופעילויות לקהילה. כולם מוזמנים."
+  />
+
+  <section class="section">
+    <div class="container">
+      {
+        calSrc ? (
+          <iframe class="embed" title="לוח האירועים של בית הכנסת" src={calSrc} height="620" loading="lazy" />
+        ) : (
+          <ComingSoon title="לוח האירועים יעלה בקרוב">
+            <p>
+              בקרוב יופיעו כאן כל האירועים של בית הכנסת. רוצים לשמוע על אירועים קרובים?{' '}
+              <a href={url('/contact')}>צרו איתנו קשר</a>.
+            </p>
+          </ComingSoon>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="container grid grid--2">
+      <div class="card">
+        <h2 class="h3">🤲 רוצים שיהיו עוד אירועים?</h2>
+        <p>
+          העירייה מממנת את התפעול השוטף של בית הכנסת. אירועים נוספים, כמו ערבי תרבות, פעילויות
+          לילדים וחגיגות קהילתיות, מתאפשרים בזכות תרומות.
+        </p>
+        <a class="btn btn--primary" href={url('/donate')}>לתרומה לאירועים</a>
+      </div>
+      <div class="card">
+        <h2 class="h3">🚶 מגיעים בקבוצה?</h2>
+        <p>בתי ספר, ארגונים ותיירים: אפשר לתאם סיור מודרך בבית הכנסת, חינם.</p>
+        <a class="btn btn--outline" href={url('/tours')}>להזמנת סיור</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .h3 {
+    font-size: 1.3rem;
+  }
+</style>

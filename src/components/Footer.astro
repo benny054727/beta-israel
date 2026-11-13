@@ -1,0 +1,99 @@
+---
+import { nav, site, url } from '../config';
+const year = new Date().getFullYear();
+const a = site.association;
+---
+
+<footer class="footer">
+  <div class="weave" aria-hidden="true"></div>
+  <div class="container footer__grid">
+    <div>
+      <p class="footer__title">{site.name}</p>
+      <p>{site.tagline}</p>
+      <p>📍 {site.address}</p>
+      {site.phone && <p>📞 <a href={`tel:${site.phone}`}>{site.phone}</a></p>}
+      {site.email && <p>✉️ <a href={`mailto:${site.email}`}>{site.email}</a></p>}
+    </div>
+
+    <nav aria-label="ניווט בתחתית העמוד">
+      <p class="footer__title">באתר</p>
+      <ul>
+        {nav.map((i) => <li><a href={url(i.href)}>{i.label}</a></li>)}
+        <li><a href={url('/donate')}>תרומה</a></li>
+      </ul>
+    </nav>
+
+    <div>
+      <p class="footer__title">{a.name}</p>
+      <p>
+        התרומות דרך האתר מתקבלות ע"י {a.name}{a.registrationNumber && <> (ע"ר {a.registrationNumber})</>}.
+      </p>
+      <a class="btn btn--light" href={url('/donate')}>לתרומה</a>
+    </div>
+  </div>
+
+  <div class="container footer__bottom">
+    <p>© {year} {site.name}</p>
+    <ul>
+      <li><a href={url('/accessibility')}>הצהרת נגישות</a></li>
+      <li><a href={url('/privacy')}>מדיניות פרטיות</a></li>
+    </ul>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--earth);
+    color: #f1e4d3;
+    margin-top: 0;
+  }
+  .footer a:not(.btn) {
+    color: #fff;
+  }
+  .footer__grid {
+    display: grid;
+    gap: 32px;
+    padding-block: 48px 32px;
+  }
+  @media (min-width: 720px) {
+    .footer__grid {
+      grid-template-columns: 1.3fr 1fr 1fr;
+    }
+  }
+  .footer__title {
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.1rem;
+    margin-bottom: 0.6em;
+  }
+  .footer p {
+    margin-bottom: 0.5em;
+  }
+  .footer ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .footer li {
+    margin-bottom: 0.4em;
+  }
+  .footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    border-top: 1px solid rgb(255 255 255 / 0.2);
+    padding-block: 20px;
+    font-size: 0.95rem;
+  }
+  .footer__bottom p {
+    margin: 0;
+  }
+  .footer__bottom ul {
+    display: flex;
+    gap: 20px;
+  }
+  .footer__bottom li {
+    margin: 0;
+  }
+</style>

@@ -1,0 +1,170 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import ComingSoon from '../components/ComingSoon.astro';
+import { site, url } from '../config';
+
+const a = site.association;
+const ready = Boolean(site.donationUrl);
+
+const causes = [
+  {
+    icon: '🎉',
+    title: 'אירועים',
+    text: 'עוד חגים, ערבי תרבות, הרצאות ומפגשים בבית הכנסת, מעבר למה שתקציב העירייה מאפשר.',
+  },
+  {
+    icon: '👨‍👩‍👧',
+    title: 'פעילות לקהילה',
+    text: 'פעילויות לילדים, לנוער ולוותיקים, וחיבור בין הדורות סביב המסורת.',
+  },
+  {
+    icon: '🎨',
+    title: 'פרויקט האמנים',
+    text: 'תערוכות, סדנאות וחומרי עבודה לציירים ולאמנים צעירים מהקהילה, ועידוד לקריירה באמנות.',
+  },
+];
+
+const amounts = [
+  { sum: 50, text: 'כיבוד לערב לימוד' },
+  { sum: 180, text: 'חומרי ציור לסדנה לאמנים' },
+  { sum: 360, text: 'פעילות לילדי הקהילה' },
+  { sum: 1000, text: 'שותפות בהפקת אירוע' },
+];
+---
+
+<Base title="תרומה" description="תרומה לפעילות בית הכנסת של ביתא ישראל בנווה יעקב: אירועים, פעילות לקהילה ופרויקט האמנים.">
+  <PageHero
+    title="תרומה לבית הכנסת"
+    lead="העירייה מממנת את הבסיס. התרומה שלכם מממנת את מה שמעבר."
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="prose">
+        <p class="big">
+          העלויות השוטפות של בית הכנסת ממומנות ע"י העירייה. אבל התקציב הזה לא מספיק כדי לקיים את כל
+          האירועים והפעילויות שהקהילה צריכה. <strong>כל תרומה הולכת ישירות לפעילות.</strong>
+        </p>
+      </div>
+
+      <h2>לאן התרומה הולכת?</h2>
+      <div class="grid grid--3">
+        {
+          causes.map((c) => (
+            <div class="card">
+              <span class="icon" aria-hidden="true">{c.icon}</span>
+              <h3>{c.title}</h3>
+              <p>{c.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sand" id="give">
+    <div class="container">
+      <h2>מה התרומה שלכם מאפשרת</h2>
+      <ul class="amounts">
+        {
+          amounts.map((x) => (
+            <li>
+              <strong>{x.sum.toLocaleString('he-IL')} ₪</strong>
+              <span>{x.text}</span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="give-box card">
+        {
+          ready ? (
+            <>
+              <h3>לתרומה מאובטחת</h3>
+              <p>אפשר לתרום תרומה חד-פעמית או בהוראת קבע חודשית. התשלום מתבצע באתר סליקה מאובטח, והקבלה נשלחת אליכם במייל.</p>
+              <div class="btn-row">
+                <a class="btn btn--primary" href={site.donationUrl} target="_blank" rel="noopener">
+                  לתרומה בכרטיס אשראי / ביט
+                </a>
+                {site.paypalUrl && (
+                  <a class="btn btn--outline" href={site.paypalUrl} target="_blank" rel="noopener" lang="en" dir="ltr">
+                    Donate with PayPal
+                  </a>
+                )}
+              </div>
+            </>
+          ) : (
+            <ComingSoon title="דף התרומה המאובטח יעלה בקרוב">
+              <p>
+                אנחנו משלימים את ההגדרה של מערכת התרומות. בינתיים, אם תרצו לתרום, <a href={url('/contact')}>צרו איתנו קשר</a>.
+              </p>
+            </ComingSoon>
+          )
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid grid--2">
+      <div class="card">
+        <h2 class="h3">🤝 מי מקבל את התרומה?</h2>
+        <p>
+          התרומות מתקבלות ומנוהלות ע"י <strong>{a.name}</strong>{a.registrationNumber && <> (עמותה רשומה, ע"ר {a.registrationNumber})</>}.
+        </p>
+        {a.hasSection46 && <p>✅ התרומה מוכרת לצורכי מס לפי <strong>סעיף 46</strong> לפקודת מס הכנסה.</p>}
+        <a href={url('/about')}>עוד על {a.name} ←</a>
+      </div>
+      <div class="card">
+        <h2 class="h3">🔒 אבטחה ושקיפות</h2>
+        <p>
+          התשלום מתבצע באתר סליקה חיצוני ומאובטח. האתר שלנו לא רואה ולא שומר את פרטי האשראי שלכם.
+        </p>
+        <p>
+          אחת לרבעון נפרסם כאן מה נעשה בכסף שנתרם: אילו אירועים ופעילויות התקיימו בזכותכם.
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .big {
+    font-size: 1.2rem;
+    margin-bottom: 2em;
+  }
+  .icon {
+    display: block;
+    font-size: 2rem;
+    margin-bottom: 8px;
+  }
+  .h3 {
+    font-size: 1.3rem;
+  }
+  .amounts {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 32px;
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  .amounts li {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+  }
+  .amounts strong {
+    display: block;
+    font-size: 1.6rem;
+    color: var(--terracotta-dark);
+  }
+  .amounts span {
+    color: var(--ink-soft);
+  }
+  .give-box h3 {
+    font-size: 1.4rem;
+  }
+</style>

@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import { url } from '../config';
+---
+
+<Base title="העמוד לא נמצא">
+  <section class="section">
+    <div class="container" style="text-align:center">
+      <h1>העמוד לא נמצא</h1>
+      <p>ייתכן שהקישור שגוי או שהעמוד הועבר.</p>
+      <a class="btn btn--primary" href={url('/')}>חזרה לדף הבית</a>
+    </div>
+  </section>
+</Base>

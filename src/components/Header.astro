@@ -76,9 +76,12 @@ const switchHref = lurl(other, current);
     font-size: 1.2rem;
     font-weight: 800;
   }
-  .brand strong,
-  .brand small {
-    white-space: nowrap;
+  /* במחשב השם לא נשבר לשתי שורות; בטלפון מותר, כדי שלא יגלוש הצידה */
+  @media (min-width: 1200px) {
+    .brand strong,
+    .brand small {
+      white-space: nowrap;
+    }
   }
   .brand small {
     display: block;
@@ -101,7 +104,7 @@ const switchHref = lurl(other, current);
   .nav a:not(.btn) {
     display: block;
     white-space: nowrap;
-    padding: 8px 12px;
+    padding: 8px 10px;
     border-radius: 8px;
     text-decoration: none;
     color: var(--ink);
@@ -159,7 +162,26 @@ const switchHref = lurl(other, current);
     align-items: center;
   }
 
-  @media (max-width: 999px) {
+  @media (max-width: 420px) {
+    .header__bar {
+      gap: 8px;
+    }
+    .header__mini a {
+      padding: 8px 6px;
+      font-size: 0.9rem;
+    }
+    .brand img {
+      width: 34px;
+      height: 34px;
+    }
+  }
+  @media (max-width: 359px) {
+    .brand small {
+      display: none;
+    }
+  }
+
+  @media (max-width: 1199px) {
     .nav {
       display: none;
     }

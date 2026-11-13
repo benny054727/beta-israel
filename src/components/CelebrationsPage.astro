@@ -1,0 +1,283 @@
+---
+/** דף "שמחות בבית הכנסת" – משותף לעברית ולאנגלית. המחירים נמצאים ב-src/config.ts */
+import Base from '../layouts/Base.astro';
+import PageHero from './PageHero.astro';
+import ComingSoon from './ComingSoon.astro';
+import { site, url } from '../config';
+import { lurl, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const he = lang === 'he';
+const L = (p: string) => lurl(lang, p);
+const c = site.celebrations;
+
+const money = (n: number) => (he ? `${n.toLocaleString('he-IL')} ₪` : `₪${n.toLocaleString('en-US')}`);
+
+const form = site.celebrationFormUrl;
+const formSrc = form ? form + (form.includes('?') ? '&' : '?') + 'embedded=true' : '';
+const waText = he ? 'שלום, אשמח לברר על אירוע בבית הכנסת' : "Hello, I'd like to ask about holding an event at the synagogue";
+const wa = site.whatsapp ? `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(waText)}` : '';
+
+const t = he
+  ? {
+      title: 'שמחות בבית הכנסת',
+      metaTitle: 'שמחות ואירועים',
+      lead: 'בר מצווה, שבת חתן, חינה או כל שמחה משפחתית: בית הכנסת פתוח לשמחות שלכם.',
+      description: 'אירועים בתשלום בבית הכנסת של ביתא ישראל בנווה יעקב: בר מצווה, שבת חתן, חינה ושמחות משפחתיות.',
+      intro: 'לחגוג בבית הכנסת של הקהילה זה לחגוג בבית. אנחנו מארחים שמחות משפחתיות באווירה חמה ומסורתית, בליווי צוות בית הכנסת.',
+      capacity: (n: string) => `בית הכנסת יכול לארח עד ${n} אורחים.`,
+      packagesTitle: 'סוגי אירועים ומחירים',
+      examplesNote: 'המחירים המוצגים הם לדוגמה בלבד. המחיר הסופי נקבע בתיאום, לפי סוג האירוע, מספר האורחים והיום בשבוע.',
+      from: 'החל מ-',
+      extrasTitle: 'תוספות אפשריות',
+      howTitle: 'איך מזמינים?',
+      steps: [
+        { n: '1', title: 'פונים אלינו', text: 'ממלאים טופס או שולחים הודעה, עם סוג האירוע, התאריך ומספר האורחים.' },
+        { n: '2', title: 'מתאמים', text: 'נחזור אליכם לבדוק זמינות, להתאים את האירוע ולסגור מחיר.' },
+        { n: '3', title: 'חוגגים', text: 'מגיעים ושמחים יחד בבית הכנסת. אנחנו דואגים לשאר.' },
+      ],
+      shabbat: 'אירועים בשבת ובחג מתקיימים לפי ההלכה ובתיאום עם הנהלת בית הכנסת.',
+      bookTitle: 'לבירור ולהזמנת אירוע',
+      formSoon: 'טופס ההזמנה יעלה בקרוב',
+      formSoonText: (link: string) => link,
+      contactVia: 'בינתיים אפשר לפנות אלינו',
+      onWhatsapp: 'בוואטסאפ',
+      onContact: 'דרך עמוד צור קשר',
+      details: '. כתבו את סוג האירוע, התאריך המבוקש ומספר האורחים.',
+      formTitle: 'טופס הזמנת אירוע',
+    }
+  : {
+      title: 'Celebrations at the Synagogue',
+      metaTitle: 'Celebrations',
+      lead: 'A bar mitzvah, Shabbat Chatan, henna or any family simcha: our synagogue is open for your celebrations.',
+      description: 'Host your celebration at the Beta Israel synagogue in Neve Yaakov, Jerusalem: bar and bat mitzvahs, Shabbat Chatan, henna evenings and family events.',
+      intro: "Celebrating at the community's synagogue feels like celebrating at home. We host family celebrations in a warm, traditional atmosphere, with the support of the synagogue team.",
+      capacity: (n: string) => `The synagogue can host up to ${n} guests.`,
+      packagesTitle: 'Events and prices',
+      examplesNote: 'The prices shown are examples only. The final price is set together with you, based on the type of event, number of guests and day of the week.',
+      from: 'From ',
+      extrasTitle: 'Optional extras',
+      howTitle: 'How to book',
+      steps: [
+        { n: '1', title: 'Get in touch', text: 'Fill in the form or send a message with the type of event, date and number of guests.' },
+        { n: '2', title: 'Plan together', text: "We'll check availability, tailor the event to you and agree on a price." },
+        { n: '3', title: 'Celebrate', text: 'Come and celebrate together at the synagogue. We take care of the rest.' },
+      ],
+      shabbat: 'Events on Shabbat and holidays are held according to Jewish law and in coordination with the synagogue management.',
+      bookTitle: 'Ask about or book an event',
+      formSoon: 'The booking form is coming soon',
+      formSoonText: (link: string) => link,
+      contactVia: 'In the meantime, you can reach us',
+      onWhatsapp: 'on WhatsApp',
+      onContact: 'through our contact page',
+      details: '. Please include the type of event, preferred date and number of guests.',
+      formTitle: 'Event booking form',
+    };
+---
+
+<Base title={t.metaTitle} description={t.description}>
+  <PageHero title={t.title} lead={t.lead} icon="celebrations.png" />
+
+  <section class="section">
+    <div class="container">
+      <p class="intro">{t.intro}</p>
+      {c.capacity && <p class="capacity">👥 {t.capacity(c.capacity)}</p>}
+
+      <h2>{t.packagesTitle}</h2>
+      {
+        c.pricesAreExamples && (
+          <div class="notice" role="note" style="margin-bottom:24px">
+            <p>{t.examplesNote}</p>
+          </div>
+        )
+      }
+      <ul class="packages">
+        {
+          c.packages.map((p) => (
+            <li class="card package">
+              <img class="badge" src={url(`/icons/${p.icon}`)} alt="" width="64" height="64" loading="lazy" />
+              <h3>{he ? p.title : p.titleEn}</h3>
+              <p>{he ? p.text : p.textEn}</p>
+              <p class="price">
+                {'from' in p && p.from && <span class="price__from">{t.from}</span>}
+                {money(p.price)}
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+
+      <h3 class="extras-title">{t.extrasTitle}</h3>
+      <ul class="extras">
+        {
+          c.extras.map((x) => (
+            <li>
+              <span>{he ? x.title : x.titleEn}</span>
+              <strong>{money(x.price)}</strong>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="container">
+      <h2>{t.howTitle}</h2>
+      <ol class="steps">
+        {
+          t.steps.map((s) => (
+            <li>
+              <span class="steps__n" aria-hidden="true">{s.n}</span>
+              <div>
+                <strong>{s.title}</strong>
+                <p>{s.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+      <p class="shabbat">🕯️ {t.shabbat}</p>
+    </div>
+  </section>
+
+  <section class="section" id="book">
+    <div class="container">
+      <h2>{t.bookTitle}</h2>
+      {
+        formSrc ? (
+          <iframe class="embed" title={t.formTitle} src={formSrc} height="1100" loading="lazy" />
+        ) : (
+          <ComingSoon title={t.formSoon}>
+            <p>
+              {t.contactVia}{' '}
+              {wa ? (
+                <a href={wa} target="_blank" rel="noopener">{t.onWhatsapp}</a>
+              ) : (
+                <a href={L('/contact')}>{t.onContact}</a>
+              )}
+              {t.details}
+            </p>
+          </ComingSoon>
+        )
+      }
+    </div>
+  </section>
+</Base>
+
+<style>
+  .intro {
+    font-size: 1.2rem;
+    max-width: 720px;
+    color: var(--ink-soft);
+  }
+  .capacity {
+    font-weight: 700;
+    color: var(--earth);
+  }
+  .packages {
+    list-style: none;
+    margin: 0 0 40px;
+    padding: 0;
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  .package {
+    display: flex;
+    flex-direction: column;
+  }
+  .package p:not(.price) {
+    color: var(--ink-soft);
+    flex: 1;
+  }
+  .price {
+    margin: 12px 0 0;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border);
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--terracotta-dark);
+  }
+  .price__from {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+  }
+  .extras-title {
+    margin-bottom: 12px;
+  }
+  .extras {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 560px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .extras li {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .extras li:last-child {
+    border-bottom: 0;
+  }
+  .extras strong {
+    color: var(--terracotta-dark);
+    white-space: nowrap;
+  }
+  .steps {
+    list-style: none;
+    margin: 0 0 24px;
+    padding: 0;
+    display: grid;
+    gap: 16px;
+  }
+  @media (min-width: 860px) {
+    .steps {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .steps li {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+  }
+  .steps__n {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.2rem;
+    box-shadow: 0 0 0 4px #f0c86a;
+  }
+  .steps strong {
+    display: block;
+    font-size: 1.15rem;
+    color: var(--earth);
+  }
+  .steps p {
+    margin: 4px 0 0;
+    color: var(--ink-soft);
+  }
+  .shabbat {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+</style>

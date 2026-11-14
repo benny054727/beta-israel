@@ -13,7 +13,7 @@ const isActive = (href: string) => current === href || current.startsWith(href +
   <div class="weave weave--thin" aria-hidden="true"></div>
   <div class="container header__bar">
     <a class="brand" href={lurl(lang, '/')}>
-      <img src={url('/favicon.svg')} alt="" width="40" height="40" />
+      <img class="brand__logo" src={url('/logo.png')} alt="" width="65" height="44" />
       <span>
         <strong>{t.brand}</strong>
         <small>{t.brandSub}</small>
@@ -151,9 +151,9 @@ const isActive = (href: string) => current === href || current.startsWith(href +
       padding: 8px 6px;
       font-size: 0.9rem;
     }
-    .brand img {
-      width: 34px;
-      height: 34px;
+    .brand__logo {
+      width: 53px;
+      height: 36px;
     }
   }
   @media (max-width: 399px) {

@@ -30,7 +30,7 @@ const alternates = languages.map((l) => ({ code: l.code, href: new URL(lurl(l.co
     <link rel="canonical" href={canonical} />
     {alternates.map((a) => <link rel="alternate" hreflang={a.code} href={a.href} />)}
     <link rel="alternate" hreflang="x-default" href={alternates[0].href} />
-    <link rel="icon" type="image/svg+xml" href={url('/favicon.svg')} />
+    <link rel="icon" type="image/png" href={url('/favicon.png')} />
     <meta name="theme-color" content="#5b3a29" />
     <link rel="manifest" href={url('/manifest.webmanifest')} />
     <link rel="apple-touch-icon" href={url('/apple-touch-icon.png')} />

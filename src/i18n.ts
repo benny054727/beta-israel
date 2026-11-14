@@ -21,7 +21,7 @@ export const ui = {
     tagline: site.tagline,
     description: site.description,
     address: site.address,
-    brand: 'ביתא ישראל',
+    brand: 'אנדנט',
     brandSub: 'נווה יעקב · ירושלים',
     skip: 'דילוג לתוכן העיקרי',
     mainNav: 'ניווט ראשי',
@@ -55,12 +55,12 @@ export const ui = {
   en: {
     dir: 'ltr',
     locale: 'en_US',
-    siteName: 'Beta Israel – Neve Yaakov',
+    siteName: 'Andenet – Neve Yaakov',
     tagline: "The synagogue of Jerusalem's Ethiopian Jewish community",
     description:
       'The community website of the Beta Israel synagogue in Neve Yaakov, Jerusalem: history and culture, events, free tours and donations.',
     address: site.addressEn,
-    brand: 'Beta Israel',
+    brand: 'Andenet',
     brandSub: 'Neve Yaakov · Jerusalem',
     skip: 'Skip to main content',
     mainNav: 'Main navigation',
@@ -94,12 +94,12 @@ export const ui = {
   am: {
     dir: 'ltr',
     locale: 'am_ET',
-    siteName: 'ቤተ እስራኤል – ኔቬ ያዕቆብ',
+    siteName: 'አንድነት – ኔቬ ያዕቆብ',
     tagline: 'በኢየሩሳሌም የሚገኘው የኢትዮጵያ ቤተ እስራኤል ማኅበረሰብ ምኩራብ',
     description:
       'በኢየሩሳሌም ኔቬ ያዕቆብ የሚገኘው የቤተ እስራኤል ምኩራብ የማኅበረሰብ ድረ-ገጽ፦ ታሪክና ባህል፣ ዝግጅቶች፣ ነጻ ጉብኝቶችና ልገሳ።',
     address: site.addressAm,
-    brand: 'ቤተ እስራኤል',
+    brand: 'አንድነት',
     brandSub: 'ኔቬ ያዕቆብ · ኢየሩሳሌም',
     skip: 'ወደ ዋናው ይዘት ይለፉ',
     mainNav: 'ዋና ማውጫ',
